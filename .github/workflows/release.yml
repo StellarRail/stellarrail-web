@@ -1,0 +1,20 @@
+name: Release
+on:
+  push:
+    tags: ['v*']
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci --no-audit --no-fund
+      - run: npm run lint && npm run typecheck && npm run test && npm run build
+      - run: test -f docs/PRODUCTION.md || (echo "PRODUCTION checklist missing" && exit 1)
+      - run: |
+          echo "## Changelog" > /tmp/notes.md
+          git log $(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")..HEAD --oneline >> /tmp/notes.md || true
+      - uses: softprops/action-gh-release@v2
+        with: { body_path: /tmp/notes.md }

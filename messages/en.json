@@ -1,0 +1,4 @@
+{
+  "login": { "title": "Login", "submit": "Sign in" },
+  "common": { "cancel": "Cancel", "save": "Save", "retry": "Retry" }
+}

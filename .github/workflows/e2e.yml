@@ -1,0 +1,20 @@
+name: E2E
+on: [push, pull_request]
+env:
+  CI: 'true'
+  NEXT_PUBLIC_USE_MOCK: 'true'
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: { shard: [1, 2] }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test --shard=${{ matrix.shard }}/2 --reporter=list
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: playwright-report-${{ matrix.shard }}, path: playwright-report/ }

@@ -1,0 +1,21 @@
+name: Preview
+on: [pull_request]
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build
+        env: { NEXT_PUBLIC_USE_MOCK: 'true' }
+      - run: echo "Preview built with mock API (Vercel step: npx vercel --prebuilt). See docs/PRODUCTION.md."
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: 'Preview build succeeded with mock API. Deploy via Vercel preview (see docs/PRODUCTION.md).'
+            })

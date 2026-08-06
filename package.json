@@ -1,0 +1,87 @@
+{
+  "name": "stellarrail-web",
+  "version": "1.0.0-rc1",
+  "private": true,
+  "engines": {
+    "node": ">=20 <21"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky install || true",
+    "docker:build": "docker build -t stellarrail-web:local .",
+    "analyze": "ANALYZE=true next build"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "3.6.0",
+    "@sentry/nextjs": "8.20.0",
+    "@tanstack/react-query": "5.51.1",
+    "@tanstack/react-query-devtools": "5.51.1",
+    "class-variance-authority": "0.7.0",
+    "clsx": "2.1.1",
+    "isomorphic-dompurify": "2.9.0",
+    "lucide-react": "0.417.0",
+    "next": "14.2.5",
+    "next-intl": "3.17.0",
+    "next-themes": "0.3.0",
+    "qrcode.react": "3.1.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-hook-form": "7.52.1",
+    "recharts": "2.12.7",
+    "sonner": "1.5.0",
+    "stellar-sdk": "12.1.0",
+    "tailwind-merge": "2.4.0",
+    "uuid": "10.0.0",
+    "zod": "3.23.8",
+    "zustand": "4.5.4"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.9.1",
+    "@next/bundle-analyzer": "14.2.5",
+    "@playwright/test": "1.47.0",
+    "@testing-library/jest-dom": "6.4.6",
+    "@testing-library/react": "16.0.0",
+    "@types/node": "20.14.12",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "@types/uuid": "10.0.0",
+    "@vitejs/plugin-react": "4.3.1",
+    "@vitest/coverage-v8": "2.0.5",
+    "autoprefixer": "10.4.19",
+    "axe-core": "4.10.0",
+    "eslint": "8.57.0",
+    "eslint-config-next": "14.2.5",
+    "husky": "9.0.11",
+    "jsdom": "24.1.1",
+    "lint-staged": "15.2.7",
+    "msw": "2.3.4",
+    "postcss": "8.4.39",
+    "prettier": "3.3.3",
+    "tailwindcss": "3.4.7",
+    "typescript": "5.4.5",
+    "vitest": "2.0.5"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,css}": [
+      "prettier --write"
+    ]
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
+  }
+}

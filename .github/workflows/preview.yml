@@ -10,7 +10,7 @@ jobs:
       - run: npm ci --no-audit --no-fund
       - run: npm run build
         env: { NEXT_PUBLIC_USE_MOCK: 'true' }
-      - run: echo "Preview built with mock API (Vercel step: npx vercel --prebuilt). See docs/PRODUCTION.md."
+      - run: 'echo "Preview built with mock API (Vercel step: npx vercel --prebuilt). See docs/PRODUCTION.md."'
       - uses: actions/github-script@v7
         with:
           script: |

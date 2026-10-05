@@ -36,5 +36,5 @@ test('audit: page renders', async ({ page }) => {
 
 test('payment detail renders', async ({ page }) => {
   await page.goto('/payments/pay_004')
-  await expect(page.getByText(/Payment/)).toBeVisible()
+  await expect(page.getByRole('heading', { name: /Payment REF-/ })).toBeVisible()
 })

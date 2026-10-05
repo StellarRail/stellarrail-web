@@ -1,5 +1,4 @@
 'use client'
-import { use } from 'react'
 import { seedPayments } from '@/mocks/seed'
 import { AddressLine, TxLink, CopyButton } from '@/components/payments/address-helpers'
 import { usePaymentStatus, useCountdown } from '@/hooks/hooks'
@@ -7,12 +6,8 @@ import dynamic from 'next/dynamic'
 
 const QrModal = dynamic(() => import('@/components/payments/QrModal'), { ssr: false })
 
-export default function PaymentDetail({
-  params
-}: {
-  params: Promise<{ id: string }>
-}): React.JSX.Element {
-  const { id } = use(params)
+export default function PaymentDetail({ params }: { params: { id: string } }): React.JSX.Element {
+  const { id } = params
   const found = seedPayments.find((p) => p.id === id) ?? seedPayments[0]!
   const { status, live } = usePaymentStatus(found.id, found.status)
   const { label, state } = useCountdown(found.deadline)

@@ -1,13 +1,14 @@
 import Link from 'next/link'
 import { seedPayments } from '@/mocks/seed'
 
-export default function PaymentsPage({
+export default async function PaymentsPage({
   searchParams
 }: {
-  searchParams: Record<string, string | undefined>
-}): React.JSX.Element {
-  const status = searchParams.status ?? ''
-  const q = searchParams.q ?? ''
+  searchParams: Promise<Record<string, string | undefined>>
+}): Promise<React.JSX.Element> {
+  const sp = await searchParams
+  const status = sp.status ?? ''
+  const q = sp.q ?? ''
   let data = seedPayments
   if (status) data = data.filter((p) => p.status === status)
   if (q) data = data.filter((p) => p.destination.includes(q) || p.referenceId.includes(q))

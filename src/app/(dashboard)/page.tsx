@@ -44,6 +44,7 @@ function StatCard({
       <p className="text-xs font-medium uppercase tracking-wide text-ink-secondary">{label}</p>
       {loading ? (
         <div
+          role="status"
           aria-busy="true"
           aria-label={`Loading ${label}`}
           className="mt-2 h-8 w-24 animate-pulse rounded bg-line-hover"
@@ -73,7 +74,7 @@ export default function DashboardPage(): React.JSX.Element {
       {degraded ? (
         <p
           role="alert"
-          className="mt-2 rounded-md border border-warning/30 bg-warning/10 px-3 py-2 text-sm text-warning-dark"
+          className="mt-2 rounded-md border border-warning/30 bg-warning/10 px-3 py-2 text-sm text-[#92400E]"
         >
           Live data unavailable — showing cached values.{' '}
           <button
@@ -158,6 +159,7 @@ export default function DashboardPage(): React.JSX.Element {
                     <tr key={i} className="border-t border-line">
                       <td colSpan={6} className="px-4 py-3">
                         <div
+                          role="status"
                           aria-busy="true"
                           aria-label="Loading activity"
                           className="h-4 animate-pulse rounded bg-line-hover"

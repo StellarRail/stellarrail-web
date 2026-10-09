@@ -4,7 +4,7 @@ import type { PaymentStatus } from '@/types'
 const styles: Record<PaymentStatus, string> = {
   DRAFT: 'bg-ink/10 text-ink',
   LOCKED_IN_ESCROW: 'bg-brand/10 text-brand-dark',
-  PENDING_APPROVAL: 'bg-warning/10 text-warning-dark',
+  PENDING_APPROVAL: 'bg-warning/10 text-[#92400E]',
   SETTLING: 'bg-brand/10 text-brand-dark',
   SETTLED: 'bg-success/10 text-success-dark',
   REFUNDED: 'bg-ink/10 text-ink-secondary',

@@ -203,6 +203,7 @@ export default function PaymentsPage(): React.JSX.Element {
                   <tr key={i} className="border-t border-line">
                     <td colSpan={5} className="px-4 py-3">
                       <div
+                        role="status"
                         aria-busy="true"
                         aria-label="Loading payments"
                         className="h-4 animate-pulse rounded bg-line-hover"

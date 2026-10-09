@@ -59,7 +59,7 @@ function Nav(): React.JSX.Element {
                 {l.href === '/approvals' ? (
                   <span
                     data-testid="pending-badge"
-                    className="ml-auto rounded-full bg-warning/10 px-1.5 text-xs font-medium text-warning-dark"
+                    className="ml-auto rounded-full bg-warning/10 px-1.5 text-xs font-medium text-[#92400E]"
                   >
                     4
                   </span>

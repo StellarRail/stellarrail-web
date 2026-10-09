@@ -9,19 +9,19 @@ test('auth: login page validates', async ({ page }) => {
 
 test('operator: dashboard + new payment', async ({ page }) => {
   await page.goto('/')
-  await expect(page.getByRole('heading', { name: 'StellarRail' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible()
   await page.goto('/payments/new')
   await expect(page.getByRole('heading', { name: 'New Payment' })).toBeVisible()
 })
 
 test('approver: queue renders', async ({ page }) => {
   await page.goto('/approvals')
-  await expect(page.getByRole('heading', { name: 'Pending Queue' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Approvals' })).toBeVisible()
 })
 
 test('admin: users guarded render', async ({ page }) => {
   await page.goto('/admin/users')
-  await expect(page.getByText(/Users|Forbidden|Please log in/)).toBeVisible()
+  await expect(page.getByText('Please log in.', { exact: true })).toBeVisible()
 })
 
 test('mfa: challenge renders', async ({ page }) => {
@@ -31,7 +31,7 @@ test('mfa: challenge renders', async ({ page }) => {
 
 test('audit: page renders', async ({ page }) => {
   await page.goto('/admin/audit')
-  await expect(page.getByText(/Audit|Forbidden|Please log in/)).toBeVisible()
+  await expect(page.getByText('Please log in.', { exact: true })).toBeVisible()
 })
 
 test('payment detail renders', async ({ page }) => {

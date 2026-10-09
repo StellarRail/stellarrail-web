@@ -133,7 +133,7 @@ function ReviewSheet({
           {Number(payment.amountXlm) > 8000 ? (
             <p
               role="alert"
-              className="rounded-md border border-warning/30 bg-warning/10 px-3 py-2 text-warning-dark"
+              className="rounded-md border border-warning/30 bg-warning/10 px-3 py-2 text-[#92400E]"
             >
               Large amount — verify destination out of band before approving.
             </p>
@@ -283,7 +283,7 @@ export default function ApprovalsPage(): React.JSX.Element {
       {query.isError ? (
         <p
           role="alert"
-          className="mt-2 rounded-md border border-warning/30 bg-warning/10 px-3 py-2 text-sm text-warning-dark"
+          className="mt-2 rounded-md border border-warning/30 bg-warning/10 px-3 py-2 text-sm text-[#92400E]"
         >
           Live queue unavailable — showing cached items.{' '}
           <button
@@ -297,7 +297,12 @@ export default function ApprovalsPage(): React.JSX.Element {
       ) : null}
 
       {query.isPending ? (
-        <div className="mt-4 space-y-2" aria-busy="true" aria-label="Loading approvals">
+        <div
+          className="mt-4 space-y-2"
+          role="status"
+          aria-busy="true"
+          aria-label="Loading approvals"
+        >
           {Array.from({ length: 4 }).map((_, i) => (
             <div key={i} className="h-16 animate-pulse rounded-md border border-line bg-white" />
           ))}

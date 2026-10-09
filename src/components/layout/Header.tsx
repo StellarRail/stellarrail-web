@@ -192,7 +192,7 @@ export function Header(): React.JSX.Element {
             'rounded-full px-2 py-0.5 text-xs font-medium uppercase tracking-wide',
             network === 'mainnet'
               ? 'bg-success/10 text-success-dark'
-              : 'bg-warning/10 text-warning-dark'
+              : 'bg-warning/10 text-[#92400E]'
           )}
         >
           {network}

@@ -9,7 +9,7 @@ test('auth: login page validates', async ({ page }) => {
 
 test('operator: dashboard + new payment', async ({ page }) => {
   await page.goto('/')
-  await expect(page.getByText('StellarRail')).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'StellarRail' })).toBeVisible()
   await page.goto('/payments/new')
   await expect(page.getByRole('heading', { name: 'New Payment' })).toBeVisible()
 })

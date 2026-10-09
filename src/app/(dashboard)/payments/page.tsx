@@ -144,7 +144,12 @@ export default function PaymentsPage(): React.JSX.Element {
         </label>
       </div>
 
-      <div className="mt-4 overflow-x-auto rounded-md border border-line bg-white">
+      <div
+        role="region"
+        aria-label="Payments table, scrollable"
+        tabIndex={0}
+        className="mt-4 overflow-x-auto rounded-md border border-line bg-white"
+      >
         <table className="w-full text-sm">
           <thead className="sticky top-0 bg-white">
             <tr className="border-b border-line">

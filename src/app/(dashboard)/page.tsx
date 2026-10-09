@@ -129,7 +129,12 @@ export default function DashboardPage(): React.JSX.Element {
 
       <section aria-label="Recent activity" className="mt-6">
         <h2 className="text-sm font-semibold tracking-tight text-ink">Recent activity</h2>
-        <div className="mt-2 overflow-x-auto rounded-md border border-line bg-white">
+        <div
+          role="region"
+          aria-label="Recent activity table, scrollable"
+          tabIndex={0}
+          className="mt-2 overflow-x-auto rounded-md border border-line bg-white"
+        >
           <table className="w-full text-sm">
             <thead className="sticky top-0 bg-white">
               <tr className="border-b border-line text-left text-xs uppercase tracking-wide text-ink-secondary">

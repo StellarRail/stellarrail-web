@@ -115,8 +115,9 @@ function CommandPalette({
             } else if (e.key === 'ArrowUp') {
               e.preventDefault()
               setIdx((i) => Math.max(i - 1, 0))
-            } else if (e.key === 'Enter' && results[idx]) {
-              go(results[idx].href)
+            } else if (e.key === 'Enter') {
+              const target = results[idx]
+              if (target) go(target.href)
             }
           }}
           placeholder="Type a command…"

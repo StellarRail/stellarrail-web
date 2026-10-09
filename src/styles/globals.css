@@ -3,6 +3,17 @@
 @tailwind utilities;
 
 :root {
+  --bg-base: #ffffff;
+  --bg-canvas: #f9fafb;
+  --surface: #ffffff;
+  --border: #e5e7eb;
+  --border-hover: #f3f4f6;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --brand: #2563eb;
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #dc2626;
   --navy-900: #0a1528;
   --stellar-500: #00b5e3;
 }
@@ -12,11 +23,40 @@ html {
 }
 
 body {
-  @apply bg-white text-slate-900 dark:bg-navy-950 dark:text-slate-100 antialiased;
+  @apply bg-white font-sans text-ink antialiased dark:bg-navy-950 dark:text-slate-100;
+}
+
+h1,
+h2,
+h3 {
+  @apply tracking-tight;
+}
+
+table {
+  @apply tabular-nums;
+}
+
+::placeholder {
+  color: #9ca3af;
 }
 
 :focus-visible {
-  outline: 2px solid #00b5e3;
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+input,
+select,
+textarea {
+  @apply focus-visible:outline-none;
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #2563eb;
   outline-offset: 2px;
 }
 
@@ -30,7 +70,7 @@ body {
   left: 0.5rem;
   top: 0.5rem;
   padding: 0.5rem 1rem;
-  background: #0a1528;
+  background: #111827;
   color: #fff;
   border-radius: 0.375rem;
 }

@@ -3,17 +3,15 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import * as React from 'react'
 
 const buttonVariants = cva(
-  'inline-flex min-h-[44px] items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stellar-500 disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
-        default: 'bg-navy-900 text-white hover:bg-navy-700 dark:bg-stellar-500 dark:text-navy-950',
-        secondary:
-          'bg-slate-100 text-slate-900 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-100',
-        destructive: 'bg-red-600 text-white hover:bg-red-700',
-        outline:
-          'border border-slate-300 hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800',
-        ghost: 'hover:bg-slate-100 dark:hover:bg-slate-800'
+        default: 'bg-brand text-white hover:bg-brand-dark',
+        secondary: 'bg-line-hover text-ink hover:bg-line',
+        destructive: 'bg-danger text-white hover:bg-danger-dark',
+        outline: 'border border-line bg-white text-ink hover:bg-line-hover',
+        ghost: 'text-ink-secondary hover:bg-line-hover hover:text-ink'
       },
       size: { default: 'h-10', sm: 'h-9 px-3', lg: 'h-11 px-6' }
     },

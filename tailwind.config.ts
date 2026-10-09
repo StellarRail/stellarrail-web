@@ -5,6 +5,31 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        canvas: '#F9FAFB',
+        ink: {
+          DEFAULT: '#111827',
+          secondary: '#6B7280'
+        },
+        line: {
+          DEFAULT: '#E5E7EB',
+          hover: '#F3F4F6'
+        },
+        brand: {
+          DEFAULT: '#2563EB',
+          dark: '#1D4ED8'
+        },
+        success: {
+          DEFAULT: '#059669',
+          dark: '#047857'
+        },
+        warning: {
+          DEFAULT: '#D97706',
+          dark: '#B45309'
+        },
+        danger: {
+          DEFAULT: '#DC2626',
+          dark: '#B91C1C'
+        },
         navy: {
           50: '#eef3ff',
           100: '#d9e4ff',
@@ -23,7 +48,8 @@ module.exports = {
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
-        display: ['var(--font-grotesk)', 'var(--font-inter)', 'sans-serif']
+        display: ['var(--font-grotesk)', 'var(--font-inter)', 'sans-serif'],
+        mono: ['var(--font-jetbrains)', 'ui-monospace', 'monospace']
       }
     }
   },

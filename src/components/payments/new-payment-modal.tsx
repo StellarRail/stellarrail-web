@@ -25,11 +25,12 @@ export function NewPaymentModal({
   onClose: () => void
 }): React.JSX.Element | null {
   const queryClient = useQueryClient()
-  const firstRef = useRef<HTMLInputElement>(null)
+  const firstRef = useRef<HTMLInputElement | null>(null)
   const { register, handleSubmit, reset, formState } = useForm<Form>({
     resolver: zodResolver(schema),
     mode: 'onChange'
   })
+  const { ref: destRef, ...destRest } = register('destination')
 
   useEffect(() => {
     if (open) {
@@ -88,8 +89,11 @@ export function NewPaymentModal({
             </label>
             <input
               id="np-destination"
-              ref={firstRef}
-              {...register('destination')}
+              {...destRest}
+              ref={(el) => {
+                destRef(el)
+                firstRef.current = el
+              }}
               placeholder="G…"
               autoComplete="off"
               spellCheck={false}

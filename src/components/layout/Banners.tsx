@@ -50,14 +50,16 @@ export function ConsentBanner(): React.JSX.Element {
     <div
       role="dialog"
       aria-label="Cookie consent"
-      className="fixed bottom-0 left-0 right-0 z-50 border-t bg-white p-3 dark:bg-navy-900"
+      className="fixed bottom-4 right-4 z-50 max-w-md rounded-xl border border-line/80 bg-white/95 p-3.5 shadow-2xl backdrop-blur-md dark:border-white/10 dark:bg-navy-900/95 animate-item-reveal"
     >
-      <p className="text-sm">
-        We use cookies for auth and analytics.{' '}
-        <button className="underline" onClick={() => setConsent(true)}>
-          Accept
-        </button>
-      </p>
+      <div className="flex items-center justify-between gap-3 text-xs text-slate-600 dark:text-slate-300">
+        <p>
+          We use cookies for auth and analytics.{' '}
+          <button className="underline" onClick={() => setConsent(true)}>
+            Accept
+          </button>
+        </p>
+      </div>
     </div>
   )
 }

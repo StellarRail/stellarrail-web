@@ -5,18 +5,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        canvas: '#F9FAFB',
+        canvas: '#F8FAFC',
         ink: {
-          DEFAULT: '#111827',
-          secondary: '#6B7280'
+          DEFAULT: '#0F172A',
+          secondary: '#475569'
         },
         line: {
-          DEFAULT: '#E5E7EB',
-          hover: '#F3F4F6'
+          DEFAULT: '#E2E8F0',
+          hover: '#CBD5E1'
         },
         brand: {
-          DEFAULT: '#2563EB',
-          dark: '#1D4ED8'
+          DEFAULT: '#0284C7',
+          dark: '#0369A1'
         },
         success: {
           DEFAULT: '#059669',
@@ -31,25 +31,35 @@ module.exports = {
           dark: '#B91C1C'
         },
         navy: {
-          50: '#eef3ff',
-          100: '#d9e4ff',
-          500: '#24407c',
-          700: '#16294f',
-          800: '#0f1e3a',
-          900: '#0a1528',
-          950: '#060d1c'
+          50: '#EEF3FF',
+          100: '#D9E4FF',
+          500: '#1E3A8A',
+          700: '#172554',
+          800: '#0F172A',
+          900: '#0A1120',
+          950: '#060911'
         },
         stellar: {
-          300: '#9be8ff',
-          400: '#4fd6ff',
-          500: '#00b5e3',
-          600: '#0090b6'
+          300: '#7DD3FC',
+          400: '#38BDF8',
+          500: '#0EA5E9',
+          600: '#0284C7'
         }
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
         display: ['var(--font-grotesk)', 'var(--font-inter)', 'sans-serif'],
         mono: ['var(--font-jetbrains)', 'ui-monospace', 'monospace']
+      },
+      transitionTimingFunction: {
+        'ease-out': 'cubic-bezier(0.23, 1, 0.32, 1)',
+        'ease-in-out': 'cubic-bezier(0.77, 0, 0.175, 1)',
+        'ease-spring': 'cubic-bezier(0.175, 0.885, 0.32, 1.15)'
+      },
+      boxShadow: {
+        subtle: '0 1px 2px 0 rgba(0, 0, 0, 0.03)',
+        refract: 'inset 0 1px 0 0 rgba(255, 255, 255, 0.08)',
+        depth: '0 4px 16px -2px rgba(0, 0, 0, 0.06)'
       }
     }
   },

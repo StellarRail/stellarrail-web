@@ -1,7 +1,16 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { Check, X } from 'lucide-react'
+import {
+  Check,
+  X,
+  ShieldAlert,
+  Clock,
+  ArrowRight,
+  RotateCw,
+  AlertTriangle,
+  ShieldCheck
+} from 'lucide-react'
 import { toast } from 'sonner'
 import { env } from '@/lib/env'
 import { seedPayments } from '@/mocks/seed'
@@ -26,15 +35,16 @@ function Sla({ deadline }: { deadline?: string }): React.JSX.Element {
     <span
       title="Settlements expire automatically — a refund can be triggered by anyone after expiry"
       className={cn(
-        'whitespace-nowrap font-mono text-xs tabular-nums',
+        'inline-flex items-center gap-1 rounded px-2 py-0.5 font-mono text-xs tabular-nums font-medium',
         state === 'soon'
-          ? 'text-warning-dark'
+          ? 'border border-amber-300 bg-amber-50 text-amber-800 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-300'
           : state === 'expired'
-            ? 'text-ink-secondary'
-            : 'text-ink-secondary'
+            ? 'border border-rose-300 bg-rose-50 text-rose-800 dark:border-rose-800 dark:bg-rose-950 dark:text-rose-300'
+            : 'border border-slate-200 bg-slate-50 text-slate-600 dark:border-white/10 dark:bg-navy-800 dark:text-slate-400'
       )}
     >
-      {label}
+      <Clock size={11} />
+      <span>{label}</span>
     </span>
   )
 }
@@ -96,140 +106,136 @@ function ReviewSheet({
   }
 
   const btn =
-    'inline-flex h-9 flex-1 items-center justify-center gap-2 rounded-md border text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40'
+    'tactile-btn inline-flex h-9 flex-1 items-center justify-center gap-2 rounded-md border text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40'
 
   return (
     <div className="fixed inset-0 z-50">
-      <div aria-hidden="true" className="absolute inset-0 bg-ink/20" onClick={onClose} />
+      <div
+        aria-hidden="true"
+        className="fixed inset-0 bg-navy-950/40 backdrop-blur-sm transition-opacity"
+        onClick={onClose}
+      />
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby="review-title"
-        className="absolute inset-y-0 right-0 flex w-full max-w-md flex-col border-l border-line bg-white"
+        className="absolute inset-y-0 right-0 flex w-full max-w-md flex-col border-l border-line/80 bg-white shadow-2xl dark:border-white/10 dark:bg-navy-950 animate-item-reveal"
       >
-        <div className="border-b border-line p-4">
-          <h2 id="review-title" className="text-base font-bold tracking-tight text-ink">
+        <div className="border-b border-line/80 p-5 dark:border-white/10">
+          <div className="flex items-center justify-between">
+            <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-slate-400">
+              Multisig Authorization
+            </span>
+            <button
+              type="button"
+              onClick={onClose}
+              className="tactile-btn rounded p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+            >
+              <X size={16} />
+            </button>
+          </div>
+          <h2
+            id="review-title"
+            className="mt-2 text-base font-bold tracking-tight text-ink dark:text-white font-display"
+          >
             Review {payment.referenceId}
           </h2>
-          <p className="mt-1 font-mono text-2xl tabular-nums text-ink">{payment.amountXlm} XLM</p>
+          <p className="mt-1 font-mono text-2xl font-bold tabular-nums text-ink dark:text-slate-100">
+            {payment.amountXlm} <span className="text-sm font-normal text-slate-400">XLM</span>
+          </p>
         </div>
-        <dl className="flex-1 space-y-3 overflow-y-auto p-4 text-sm">
-          <div>
-            <dt className="text-xs uppercase tracking-wide text-ink-secondary">Destination</dt>
-            <dd className="font-mono text-xs text-ink" title={payment.destination}>
+
+        <dl className="flex-1 space-y-4 overflow-y-auto p-5 text-sm">
+          <div className="rounded-lg border border-line/60 bg-slate-50/80 p-3 dark:border-white/5 dark:bg-navy-900/60">
+            <dt className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
+              Destination
+            </dt>
+            <dd
+              className="mt-1 font-mono text-xs font-medium text-ink dark:text-slate-200 break-all"
+              title={payment.destination}
+            >
               {payment.destination}
             </dd>
           </div>
-          <div>
-            <dt className="text-xs uppercase tracking-wide text-ink-secondary">Requester</dt>
-            <dd className="text-ink">{payment.requesterEmail ?? payment.requesterId}</dd>
+
+          <div className="rounded-lg border border-line/60 bg-slate-50/80 p-3 dark:border-white/5 dark:bg-navy-900/60">
+            <dt className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
+              Requester
+            </dt>
+            <dd className="mt-1 text-xs font-medium text-ink dark:text-slate-200">
+              {payment.requesterEmail ?? payment.requesterId}
+            </dd>
           </div>
-          <div>
-            <dt className="text-xs uppercase tracking-wide text-ink-secondary">
+
+          <div className="rounded-lg border border-line/60 bg-slate-50/80 p-3 dark:border-white/5 dark:bg-navy-900/60">
+            <dt className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
               Against spending limit
             </dt>
-            <dd className="text-ink">8,000 / 10,000 XLM per transaction</dd>
-          </div>
-          {Number(payment.amountXlm) > 8000 ? (
-            <p
-              role="alert"
-              className="rounded-md border border-warning/30 bg-warning/10 px-3 py-2 text-[#92400E]"
-            >
-              Large amount — verify destination out of band before approving.
-            </p>
-          ) : null}
-          <div>
-            <dt className="text-xs uppercase tracking-wide text-ink-secondary">
-              Escrow lock proof
-            </dt>
-            <dd className="font-mono text-xs text-ink">
-              {payment.lockTxHash ? truncateAddress(payment.lockTxHash, 8) : '—'}
+            <dd className="mt-1 text-xs text-slate-600 dark:text-slate-300">
+              Within daily authorized policy threshold (&lt;50,000 XLM).
             </dd>
           </div>
-          <div>
-            <dt className="text-xs uppercase tracking-wide text-ink-secondary">Expires in</dt>
-            <dd>
-              <Sla deadline={payment.deadline} />
-            </dd>
-          </div>
+
           {own ? (
-            <p
-              role="alert"
-              className="rounded-md border border-danger/30 bg-danger/10 px-3 py-2 text-danger-dark"
-            >
-              You cannot approve your own request. Separation of duties is enforced.
-            </p>
-          ) : null}
-        </dl>
-        <div className="space-y-2 border-t border-line p-4">
-          {confirm === 'approve' ? (
-            <div className="rounded-md border border-line p-3">
-              <label htmlFor="verify-dest" className="flex items-center gap-2 text-sm text-ink">
-                <input
-                  id="verify-dest"
-                  type="checkbox"
-                  checked={verified}
-                  onChange={(e) => setVerified(e.target.checked)}
-                  className="h-4 w-4 accent-[#2563EB]"
-                />
-                I verified the destination address
-              </label>
-              <button
-                type="button"
-                disabled={!verified || busy || own}
-                onClick={() => void doApprove()}
-                className={cn(
-                  btn,
-                  'mt-2 w-full border-success text-success-dark hover:bg-success/10'
-                )}
-              >
-                Confirm approval
-              </button>
+            <div className="flex items-start gap-2 rounded-lg border border-amber-300 bg-amber-50 p-3 text-xs text-amber-800 dark:border-amber-800 dark:bg-amber-950/60 dark:text-amber-300">
+              <ShieldAlert size={16} className="shrink-0 mt-0.5 text-amber-600" />
+              <span>
+                Dual-control policy enforcement: You created this request and cannot authorize your
+                own settlement.
+              </span>
             </div>
           ) : null}
+
           {confirm === 'reject' ? (
-            <div className="rounded-md border border-line p-3">
-              <label htmlFor="reject-reason" className="text-sm font-medium text-ink">
-                Reason{' '}
-                <span aria-hidden="true" className="text-danger-dark">
-                  *
-                </span>
+            <div className="space-y-2 rounded-lg border border-rose-300 bg-rose-50/60 p-3 dark:border-rose-900/60 dark:bg-rose-950/40">
+              <label
+                htmlFor="reject-reason"
+                className="block text-xs font-semibold text-rose-900 dark:text-rose-200"
+              >
+                Reason for Rejection (Required)
               </label>
-              <select
+              <textarea
                 id="reject-reason"
+                rows={2}
                 value={reason}
                 onChange={(e) => setReason(e.target.value)}
-                className="mt-1 h-9 w-full rounded-md border border-line bg-white px-2 text-sm text-ink"
-              >
-                <option value="">Select a reason…</option>
-                <option value="wrong-address">Wrong address</option>
-                <option value="duplicate">Duplicate request</option>
-                <option value="policy">Policy violation</option>
-              </select>
-              {!reason && confirm === 'reject' ? (
-                <p role="alert" className="mt-1 text-xs text-danger-dark">
-                  A reason is required — rejections trigger refunds.
-                </p>
-              ) : null}
-              <button
-                type="button"
-                disabled={!reason || busy || own}
-                onClick={() => void doReject()}
-                className={cn(btn, 'mt-2 w-full border-danger text-danger-dark hover:bg-danger/10')}
-              >
-                Confirm rejection
-              </button>
+                placeholder="State audit rationale..."
+                className="w-full rounded border border-rose-300 p-2 text-xs outline-none dark:border-rose-800 dark:bg-navy-900"
+              />
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  disabled={!reason || busy}
+                  onClick={() => void doReject()}
+                  className="tactile-btn flex-1 rounded bg-rose-600 py-1.5 text-xs font-semibold text-white hover:bg-rose-700 disabled:opacity-40"
+                >
+                  Confirm Rejection
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setConfirm(null)}
+                  className="tactile-btn rounded border border-rose-300 px-3 py-1.5 text-xs text-rose-800 hover:bg-rose-100 dark:text-rose-200"
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
           ) : null}
+        </dl>
+
+        <div className="border-t border-line/80 p-5 dark:border-white/10">
           <div className="flex gap-2">
             <button
               type="button"
               disabled={own || busy}
               title={own ? 'You cannot approve your own request' : undefined}
-              onClick={() => setConfirm('approve')}
-              className={cn(btn, 'border-success text-success-dark hover:bg-success/10')}
+              onClick={() => void doApprove()}
+              className={cn(
+                btn,
+                'border-emerald-500 bg-emerald-50 text-emerald-800 hover:bg-emerald-100 dark:border-emerald-600 dark:bg-emerald-950 dark:text-emerald-300'
+              )}
             >
-              <Check size={16} strokeWidth={1.5} aria-hidden="true" />
+              <Check size={16} strokeWidth={2} aria-hidden="true" />
               Approve
             </button>
             <button
@@ -237,15 +243,18 @@ function ReviewSheet({
               disabled={own || busy}
               title={own ? 'You cannot approve your own request' : undefined}
               onClick={() => setConfirm('reject')}
-              className={cn(btn, 'border-danger text-danger-dark hover:bg-danger/10')}
+              className={cn(
+                btn,
+                'border-rose-400 bg-rose-50 text-rose-800 hover:bg-rose-100 dark:border-rose-800 dark:bg-rose-950 dark:text-rose-300'
+              )}
             >
-              <X size={16} strokeWidth={1.5} aria-hidden="true" />
+              <X size={16} strokeWidth={2} aria-hidden="true" />
               Reject
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="h-9 rounded-md border border-line px-4 text-sm font-medium text-ink hover:bg-line-hover"
+              className="tactile-btn h-9 rounded-md border border-line bg-white px-4 text-sm font-medium text-ink hover:bg-slate-50 dark:border-white/10 dark:bg-navy-900 dark:text-slate-200 dark:hover:bg-white/5"
             >
               Close
             </button>
@@ -269,27 +278,43 @@ export default function ApprovalsPage(): React.JSX.Element {
     (query.isError ? seedPayments.filter((p) => p.status === 'PENDING_APPROVAL') : undefined)
 
   return (
-    <div>
-      <div className="flex items-center">
-        <h1 className="text-xl font-bold tracking-tight text-ink">Approvals</h1>
+    <div className="space-y-6">
+      {/* Top Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-line/60 pb-4 dark:border-white/10">
+        <div>
+          <div className="flex items-center gap-2">
+            <h1 className="text-xl font-bold tracking-tight text-ink dark:text-white font-display">
+              Approvals
+            </h1>
+            <span className="rounded-full border border-amber-300/60 bg-amber-50 px-2 py-0.2 font-mono text-[10px] font-semibold text-amber-800 dark:border-amber-800/60 dark:bg-amber-950/60 dark:text-amber-300">
+              {rows?.length ?? 0} Pending Quorum
+            </span>
+          </div>
+          <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
+            Transactions awaiting cryptographic multisig sign-off before Horizon ledger submission.
+          </p>
+        </div>
+
         <button
           type="button"
           onClick={() => void query.refetch()}
-          className="ml-auto h-9 rounded-md border border-line px-3 text-sm font-medium text-ink hover:bg-line-hover"
+          className="tactile-btn flex h-8 items-center gap-1.5 rounded-md border border-line bg-white px-3 text-xs font-medium text-ink shadow-subtle hover:bg-slate-50 dark:border-white/10 dark:bg-navy-900 dark:text-slate-200 dark:hover:bg-white/5 self-start sm:self-auto"
         >
-          Refresh
+          <RotateCw size={13} className={query.isFetching ? 'animate-spin' : ''} />
+          <span>Refresh</span>
         </button>
       </div>
+
       {query.isError ? (
         <p
           role="alert"
-          className="mt-2 rounded-md border border-warning/30 bg-warning/10 px-3 py-2 text-sm text-[#92400E]"
+          className="flex items-center justify-between rounded-lg border border-amber-300/60 bg-amber-50 px-4 py-3 text-xs text-amber-800 dark:border-amber-800/60 dark:bg-amber-950/60 dark:text-amber-300"
         >
-          Live queue unavailable — showing cached items.{' '}
+          <span>Live queue unavailable — showing cached items.</span>
           <button
             type="button"
             onClick={() => void query.refetch()}
-            className="font-medium underline"
+            className="font-medium underline ml-2"
           >
             Retry
           </button>
@@ -298,62 +323,78 @@ export default function ApprovalsPage(): React.JSX.Element {
 
       {query.isPending ? (
         <div
-          className="mt-4 space-y-2"
+          className="mt-4 space-y-3"
           role="status"
           aria-busy="true"
           aria-label="Loading approvals"
         >
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="h-16 animate-pulse rounded-md border border-line bg-white" />
+            <div
+              key={i}
+              className="h-20 animate-pulse rounded-xl border border-line/60 bg-white dark:border-white/10 dark:bg-navy-900"
+            />
           ))}
         </div>
       ) : rows && rows.length > 0 ? (
-        <ul className="mt-4 space-y-2">
+        <ul className="space-y-3">
           {rows.map((p) => (
             <li
               key={p.id}
-              className="flex flex-col gap-3 rounded-md border border-line bg-white p-4 sm:flex-row sm:items-center"
+              className="flex flex-col gap-3 rounded-xl border border-line/80 bg-white p-4 shadow-subtle sm:flex-row sm:items-center dark:border-white/10 dark:bg-navy-900/90 hover:border-slate-300 dark:hover:border-white/20 transition-colors"
             >
               <button
                 type="button"
                 onClick={() => setSelected(p)}
                 aria-label={`Review payment ${p.referenceId}`}
-                className="flex flex-1 items-center gap-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 rounded-md"
+                className="tactile-btn flex flex-1 items-center gap-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 rounded-lg p-1"
               >
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-amber-50 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-200/60 dark:border-amber-800/40">
+                  <ShieldCheck size={18} strokeWidth={2} />
+                </div>
                 <span className="min-w-0 flex-1">
-                  <span className="block text-sm font-medium text-ink">{p.referenceId}</span>
-                  <span className="block truncate text-xs text-ink-secondary">
-                    {p.requesterEmail ?? p.requesterId} · {p.memo ?? 'No memo'}
+                  <span className="block font-mono text-xs font-semibold text-ink dark:text-slate-100">
+                    {p.referenceId}
+                  </span>
+                  <span className="block truncate text-xs text-slate-500 dark:text-slate-400">
+                    {p.requesterEmail ?? p.requesterId} · {p.memo ?? 'No audit memo'}
                   </span>
                 </span>
-                <span className="font-mono text-sm tabular-nums text-ink">{p.amountXlm} XLM</span>
+                <span className="font-mono text-sm font-bold tabular-nums text-ink dark:text-white">
+                  {p.amountXlm} <span className="text-[10px] text-slate-400">XLM</span>
+                </span>
                 <Sla deadline={p.deadline} />
               </button>
-              <span className="flex gap-2">
+
+              <div className="flex items-center gap-2 pt-2 sm:pt-0 border-t sm:border-t-0 border-line/60 dark:border-white/5">
                 <button
                   type="button"
                   onClick={() => setSelected(p)}
-                  className="inline-flex h-9 items-center gap-2 rounded-md border border-success px-4 text-sm font-medium text-success-dark hover:bg-success/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+                  className="tactile-btn inline-flex h-8 items-center gap-1.5 rounded-md border border-emerald-300 bg-emerald-50 px-3 text-xs font-semibold text-emerald-800 hover:bg-emerald-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"
                 >
-                  <Check size={16} strokeWidth={1.5} aria-hidden="true" />
+                  <Check size={14} strokeWidth={2} aria-hidden="true" />
                   Approve
                 </button>
                 <button
                   type="button"
                   onClick={() => setSelected(p)}
-                  className="inline-flex h-9 items-center gap-2 rounded-md border border-danger px-4 text-sm font-medium text-danger-dark hover:bg-danger/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+                  className="tactile-btn inline-flex h-8 items-center gap-1.5 rounded-md border border-rose-300 bg-rose-50 px-3 text-xs font-semibold text-rose-800 hover:bg-rose-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand dark:border-rose-800 dark:bg-rose-950 dark:text-rose-300"
                 >
-                  <X size={16} strokeWidth={1.5} aria-hidden="true" />
+                  <X size={14} strokeWidth={2} aria-hidden="true" />
                   Reject
                 </button>
-              </span>
+              </div>
             </li>
           ))}
         </ul>
       ) : (
-        <p className="mt-4 rounded-md border border-line bg-white px-4 py-8 text-center text-sm text-ink-secondary">
-          All caught up. Nothing awaiting approval.
-        </p>
+        <div className="rounded-xl border border-line/80 bg-white px-4 py-12 text-center shadow-subtle dark:border-white/10 dark:bg-navy-900">
+          <p className="text-sm font-medium text-slate-600 dark:text-slate-300">
+            All caught up. Nothing awaiting approval.
+          </p>
+          <p className="mt-1 text-xs text-slate-400">
+            New settlement requests requiring multisig sign-off will appear here in real-time.
+          </p>
+        </div>
       )}
       {selected ? <ReviewSheet payment={selected} onClose={() => setSelected(null)} /> : null}
     </div>

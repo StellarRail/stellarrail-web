@@ -158,8 +158,8 @@ function Nav(): React.JSX.Element {
                         className={cn(
                           'hidden text-[10px] font-mono tracking-tight group-hover:inline lg:inline',
                           active
-                            ? 'text-slate-300/60 dark:text-slate-400'
-                            : 'text-slate-500/80 dark:text-slate-400'
+                            ? 'text-slate-300 dark:text-slate-300'
+                            : 'text-slate-700 dark:text-slate-300'
                         )}
                       >
                         {l.shortcut}

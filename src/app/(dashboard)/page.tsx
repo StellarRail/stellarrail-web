@@ -79,7 +79,7 @@ function MechanicalRailPipeline(): React.JSX.Element {
               Stellar Rail Consensus Pipeline
             </h3>
           </div>
-          <span className="rounded border border-line bg-slate-100 px-2 py-0.5 font-mono text-[10px] text-slate-500 dark:border-white/10 dark:bg-navy-800 dark:text-slate-400">
+          <span className="rounded border border-line bg-slate-100 px-2 py-0.5 font-mono text-[10px] text-slate-700 dark:border-white/10 dark:bg-navy-800 dark:text-slate-300 font-medium">
             Realtime Protocol v21
           </span>
         </div>

@@ -28,7 +28,9 @@ export default function UsersPage(): React.JSX.Element {
             <tr key={u.id} className="border-t">
               <td>{u.email}</td>
               <td>
-                <span className="rounded bg-slate-100 px-2 py-0.5 text-xs">{u.role}</span>
+                <span className="rounded border border-line bg-slate-100 px-2 py-0.5 text-xs text-slate-700 dark:border-white/10 dark:bg-navy-800 dark:text-slate-300 font-mono">
+                  {u.role}
+                </span>
               </td>
               <td className="space-x-2">
                 <button

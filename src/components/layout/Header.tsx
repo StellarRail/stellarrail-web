@@ -159,7 +159,7 @@ function CommandPalette({
             aria-activedescendant={`cmd-${idx}`}
             className="h-11 w-full bg-transparent text-sm text-ink outline-none placeholder:text-slate-400 dark:text-slate-100 dark:placeholder:text-slate-500"
           />
-          <kbd className="rounded border border-line bg-slate-100 px-1.5 py-0.5 font-mono text-[10px] text-slate-500 dark:border-white/10 dark:bg-navy-800 dark:text-slate-400">
+          <kbd className="rounded border border-line bg-slate-100 px-1.5 py-0.5 font-mono text-[10px] text-slate-700 dark:border-white/10 dark:bg-navy-800 dark:text-slate-300">
             ESC
           </kbd>
         </div>

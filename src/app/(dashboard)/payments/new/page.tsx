@@ -85,7 +85,7 @@ export default function NewPaymentPage(): React.JSX.Element {
             Escrow Settlement
           </span>
         </div>
-        <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
+        <p className="mt-0.5 text-xs text-slate-600 dark:text-slate-400">
           Create and lock high-value XLM transactions in non-custodial smart contracts awaiting
           multisig consensus.
         </p>
@@ -114,7 +114,7 @@ export default function NewPaymentPage(): React.JSX.Element {
                     ? 'border-brand/60 bg-slate-50 font-semibold text-ink dark:border-stellar-400/60 dark:bg-navy-800 dark:text-white'
                     : isCompleted
                       ? 'border-emerald-300/60 bg-emerald-50/50 text-emerald-800 dark:border-emerald-800/60 dark:bg-emerald-950/30 dark:text-emerald-300'
-                      : 'border-line/60 bg-white/60 text-slate-400 dark:border-white/5 dark:bg-navy-900/40'
+                      : 'border-line/60 bg-white/60 text-slate-600 dark:border-white/5 dark:bg-navy-900/40 dark:text-slate-400'
                 )}
               >
                 <span
@@ -124,7 +124,7 @@ export default function NewPaymentPage(): React.JSX.Element {
                       ? 'bg-emerald-500 text-white'
                       : isCurrent
                         ? 'bg-navy-900 text-white dark:bg-stellar-500 dark:text-navy-950'
-                        : 'bg-slate-200 text-slate-500 dark:bg-slate-800'
+                        : 'bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300'
                   )}
                 >
                   {isCompleted ? '✓' : i + 1}
@@ -158,7 +158,7 @@ export default function NewPaymentPage(): React.JSX.Element {
                 Destination (G…)
               </label>
               <a
-                className="text-[11px] text-brand hover:underline dark:text-stellar-400"
+                className="text-[11px] text-sky-700 hover:underline dark:text-sky-400 font-medium"
                 href="https://developers.stellar.org/docs/learn/fundamentals/stellar-data-structures/accounts"
                 target="_blank"
                 rel="noreferrer"
@@ -201,7 +201,7 @@ export default function NewPaymentPage(): React.JSX.Element {
               >
                 Amount (XLM)
               </label>
-              <span className="font-mono text-[11px] text-slate-400">
+              <span className="font-mono text-[11px] text-slate-600 dark:text-slate-400">
                 1 XLM = {STROOPS_PER_XLM.toLocaleString()} stroops
               </span>
             </div>
@@ -222,7 +222,7 @@ export default function NewPaymentPage(): React.JSX.Element {
                 Max
               </button>
             </div>
-            <div className="mt-1.5 flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-slate-400">
+            <div className="mt-1.5 flex items-center justify-between text-[11px] font-mono text-slate-600 dark:text-slate-400">
               <span>Balance: {BALANCE} XLM</span>
               <span>Network fee ~0.00001 XLM</span>
             </div>
@@ -273,7 +273,7 @@ export default function NewPaymentPage(): React.JSX.Element {
             </Button>
           </div>
 
-          <div className="border-t border-line/60 pt-3 dark:border-white/5 flex items-center justify-between text-[11px] font-mono text-slate-400">
+          <div className="border-t border-line/60 pt-3 dark:border-white/5 flex items-center justify-between text-[11px] font-mono text-slate-600 dark:text-slate-400">
             <span>Summary verification:</span>
             <span className="font-semibold text-ink dark:text-slate-200">
               Amount entered: {amount || '—'}

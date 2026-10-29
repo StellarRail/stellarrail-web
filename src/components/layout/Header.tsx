@@ -191,18 +191,22 @@ function CommandPalette({
                   <Icon
                     size={16}
                     strokeWidth={1.5}
-                    className={isSelected ? 'text-brand dark:text-stellar-400' : 'text-slate-400'}
+                    className={
+                      isSelected
+                        ? 'text-sky-700 dark:text-stellar-400'
+                        : 'text-slate-500 dark:text-slate-400'
+                    }
                   />
                   <span>{c.label}</span>
                 </div>
-                <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-slate-600 dark:text-slate-400">
                   {c.category}
                 </span>
               </li>
             )
           })}
           {results.length === 0 ? (
-            <li className="px-3 py-8 text-center text-xs text-slate-400 dark:text-slate-500">
+            <li className="px-3 py-8 text-center text-xs text-slate-600 dark:text-slate-400">
               No matching commands found.
             </li>
           ) : null}
@@ -236,7 +240,7 @@ export function Header(): React.JSX.Element {
           type="button"
           aria-label="Open navigation"
           onClick={toggleSidebar}
-          className="tactile-btn rounded-md p-1.5 text-slate-500 hover:bg-slate-100 hover:text-slate-900 md:hidden dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-slate-100"
+          className="tactile-btn rounded-md p-1.5 text-slate-600 hover:bg-slate-100 hover:text-slate-950 md:hidden dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-slate-100"
         >
           <Menu size={18} strokeWidth={1.5} aria-hidden="true" />
         </button>
@@ -264,12 +268,12 @@ export function Header(): React.JSX.Element {
             </span>
           </div>
           <span className="text-slate-300 dark:text-slate-700">·</span>
-          <div className="flex items-center gap-1 text-[11px] font-mono tabular-nums text-slate-600 dark:text-slate-400">
-            <Cpu size={12} strokeWidth={1.5} className="text-slate-400" />
+          <div className="flex items-center gap-1 text-[11px] font-mono tabular-nums text-slate-700 dark:text-slate-300">
+            <Cpu size={12} strokeWidth={1.5} className="text-slate-500 dark:text-slate-400" />
             <span>Seq #52.1M</span>
           </div>
           <span className="text-slate-300 dark:text-slate-700">·</span>
-          <span className="text-[11px] font-mono tabular-nums text-slate-500 dark:text-slate-400">
+          <span className="text-[11px] font-mono tabular-nums text-slate-600 dark:text-slate-400">
             4.8s Close
           </span>
         </div>
@@ -292,11 +296,11 @@ export function Header(): React.JSX.Element {
           type="button"
           aria-label="Open command palette"
           onClick={() => setPalette(true)}
-          className="tactile-btn flex h-8 items-center gap-2 rounded-md border border-line/80 bg-white px-2.5 text-xs text-slate-500 shadow-subtle hover:border-slate-300 hover:text-slate-900 dark:border-white/10 dark:bg-navy-900/80 dark:text-slate-400 dark:hover:border-white/20 dark:hover:text-slate-100"
+          className="tactile-btn flex h-8 items-center gap-2 rounded-md border border-line/80 bg-white px-2.5 text-xs text-slate-600 shadow-subtle hover:border-slate-300 hover:text-slate-900 dark:border-white/10 dark:bg-navy-900/80 dark:text-slate-300 dark:hover:border-white/20 dark:hover:text-slate-100"
         >
           <Search size={14} strokeWidth={1.5} aria-hidden="true" />
           <span className="hidden sm:inline font-sans">Command</span>
-          <kbd className="hidden rounded border border-line bg-slate-100 px-1 font-mono text-[10px] text-slate-500 dark:border-white/10 dark:bg-navy-800 dark:text-slate-400 sm:inline">
+          <kbd className="hidden rounded border border-line bg-slate-100 px-1 font-mono text-[10px] text-slate-700 dark:border-white/10 dark:bg-navy-800 dark:text-slate-300 sm:inline">
             ⌘K
           </kbd>
         </button>
@@ -305,7 +309,7 @@ export function Header(): React.JSX.Element {
         <Link
           href="/notifications"
           aria-label="Notifications"
-          className="tactile-btn relative rounded-md p-1.5 text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-slate-100"
+          className="tactile-btn relative rounded-md p-1.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-slate-100"
         >
           <Bell size={16} strokeWidth={1.5} aria-hidden="true" />
           <span className="absolute top-1 right-1 h-1.5 w-1.5 rounded-full bg-brand dark:bg-stellar-400" />
@@ -316,7 +320,7 @@ export function Header(): React.JSX.Element {
           type="button"
           aria-label="Toggle theme"
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-          className="tactile-btn rounded-md p-1.5 text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-slate-100"
+          className="tactile-btn rounded-md p-1.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-slate-100"
         >
           {theme === 'dark' ? (
             <Sun size={16} strokeWidth={1.5} aria-hidden="true" />

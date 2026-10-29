@@ -151,8 +151,8 @@ export default function PaymentsPage(): React.JSX.Element {
           <span>Filters:</span>
         </div>
 
-        <label className="flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-300">
-          <span className="font-mono text-[11px] text-slate-400">Status</span>
+        <label className="flex items-center gap-1.5 text-xs text-slate-700 dark:text-slate-300">
+          <span className="font-mono text-[11px] text-slate-600 dark:text-slate-400">Status</span>
           <select
             value={status}
             onChange={(e) => {
@@ -170,8 +170,10 @@ export default function PaymentsPage(): React.JSX.Element {
           </select>
         </label>
 
-        <label className="flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-300">
-          <span className="font-mono text-[11px] text-slate-400">Timeframe</span>
+        <label className="flex items-center gap-1.5 text-xs text-slate-700 dark:text-slate-300">
+          <span className="font-mono text-[11px] text-slate-600 dark:text-slate-400">
+            Timeframe
+          </span>
           <select
             value={range}
             onChange={(e) => {
@@ -187,8 +189,8 @@ export default function PaymentsPage(): React.JSX.Element {
           </select>
         </label>
 
-        <label className="flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-300">
-          <span className="font-mono text-[11px] text-slate-400">Asset</span>
+        <label className="flex items-center gap-1.5 text-xs text-slate-700 dark:text-slate-300">
+          <span className="font-mono text-[11px] text-slate-600 dark:text-slate-400">Asset</span>
           <select
             aria-label="Asset"
             disabled

@@ -35,17 +35,19 @@ export default function PaymentDetail({
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-line/60 pb-4 dark:border-white/10">
         <div>
-          <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-slate-400">
+          <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">
             Payment Audit Details
           </span>
           <h1 className="mt-1 text-2xl font-bold tracking-tight text-ink dark:text-white font-display">
             Payment {found.referenceId}
           </h1>
-          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2">
+          <p className="mt-1 text-xs text-slate-600 dark:text-slate-400 flex items-center gap-2">
             <span
               className={cn(
                 'inline-flex items-center gap-1 font-mono font-medium',
-                live ? 'text-brand dark:text-stellar-400' : 'text-emerald-600 dark:text-emerald-400'
+                live
+                  ? 'text-sky-700 dark:text-stellar-400'
+                  : 'text-emerald-700 dark:text-emerald-400'
               )}
             >
               {live ? '● Live' : '○ Settled'}
@@ -56,12 +58,15 @@ export default function PaymentDetail({
               <span
                 className={cn(
                   'font-mono font-semibold',
-                  state === 'soon' ? 'text-amber-600 dark:text-amber-400' : ''
+                  state === 'soon' ? 'text-amber-700 dark:text-amber-400' : ''
                 )}
               >
                 {label}
               </span>{' '}
-              <span title="Auto-refund callable by anyone after expiry" className="text-slate-400">
+              <span
+                title="Auto-refund callable by anyone after expiry"
+                className="text-slate-600 dark:text-slate-400"
+              >
                 (auto-refund after expiry)
               </span>
             </span>
@@ -78,7 +83,7 @@ export default function PaymentDetail({
       <div className="rounded-xl border border-line/80 bg-white p-6 shadow-subtle dark:border-white/10 dark:bg-navy-900">
         <dl className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
           <div className="rounded-lg border border-line/60 bg-slate-50/80 p-3 dark:border-white/5 dark:bg-navy-800/50">
-            <dt className="font-mono text-[10px] uppercase tracking-wider text-slate-400">
+            <dt className="font-mono text-[10px] uppercase tracking-wider text-slate-600 dark:text-slate-400">
               Amount
             </dt>
             <dd className="mt-1 font-mono text-xl font-bold text-ink dark:text-white tabular-nums">
@@ -88,7 +93,7 @@ export default function PaymentDetail({
           </div>
 
           <div className="rounded-lg border border-line/60 bg-slate-50/80 p-3 dark:border-white/5 dark:bg-navy-800/50">
-            <dt className="font-mono text-[10px] uppercase tracking-wider text-slate-400">
+            <dt className="font-mono text-[10px] uppercase tracking-wider text-slate-600 dark:text-slate-400">
               Status
             </dt>
             <dd className="mt-1 font-mono text-sm font-semibold text-ink dark:text-slate-100">
@@ -97,7 +102,7 @@ export default function PaymentDetail({
           </div>
 
           <div className="sm:col-span-2 rounded-lg border border-line/60 bg-slate-50/80 p-3 dark:border-white/5 dark:bg-navy-800/50">
-            <dt className="font-mono text-[10px] uppercase tracking-wider text-slate-400">
+            <dt className="font-mono text-[10px] uppercase tracking-wider text-slate-600 dark:text-slate-400">
               Destination
             </dt>
             <dd className="mt-1 font-mono text-xs text-ink dark:text-slate-200 break-all">
@@ -106,14 +111,16 @@ export default function PaymentDetail({
           </div>
 
           <div className="rounded-lg border border-line/60 bg-slate-50/80 p-3 dark:border-white/5 dark:bg-navy-800/50">
-            <dt className="font-mono text-[10px] uppercase tracking-wider text-slate-400">Memo</dt>
+            <dt className="font-mono text-[10px] uppercase tracking-wider text-slate-600 dark:text-slate-400">
+              Memo
+            </dt>
             <dd className="mt-1 font-mono text-xs text-ink dark:text-slate-200">
               {found.memo ?? '—'}
             </dd>
           </div>
 
           <div className="rounded-lg border border-line/60 bg-slate-50/80 p-3 dark:border-white/5 dark:bg-navy-800/50">
-            <dt className="font-mono text-[10px] uppercase tracking-wider text-slate-400">
+            <dt className="font-mono text-[10px] uppercase tracking-wider text-slate-600 dark:text-slate-400">
               Escrow Contract
             </dt>
             <dd className="mt-1 font-mono text-xs text-ink dark:text-slate-200 break-all">
@@ -122,7 +129,7 @@ export default function PaymentDetail({
           </div>
 
           <div className="rounded-lg border border-line/60 bg-slate-50/80 p-3 dark:border-white/5 dark:bg-navy-800/50">
-            <dt className="font-mono text-[10px] uppercase tracking-wider text-slate-400">
+            <dt className="font-mono text-[10px] uppercase tracking-wider text-slate-600 dark:text-slate-400">
               Lock Transaction Hash
             </dt>
             <dd className="mt-1 font-mono text-xs text-ink dark:text-slate-200 break-all">
@@ -131,7 +138,7 @@ export default function PaymentDetail({
           </div>
 
           <div className="rounded-lg border border-line/60 bg-slate-50/80 p-3 dark:border-white/5 dark:bg-navy-800/50">
-            <dt className="font-mono text-[10px] uppercase tracking-wider text-slate-400">
+            <dt className="font-mono text-[10px] uppercase tracking-wider text-slate-600 dark:text-slate-400">
               Settlement Hash
             </dt>
             <dd className="mt-1 font-mono text-xs text-ink dark:text-slate-200 break-all">

@@ -141,7 +141,7 @@ function MechanicalRailPipeline(): React.JSX.Element {
                     >
                       {isDone ? <Check size={12} strokeWidth={2.5} /> : idx + 1}
                     </span>
-                    <span className="font-mono text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-tight">
+                    <span className="font-mono text-[10px] text-slate-600 dark:text-slate-400 uppercase tracking-tight">
                       Step 0{idx + 1}
                     </span>
                   </div>
@@ -177,7 +177,7 @@ function StatItem({
   return (
     <div className="p-5 flex flex-col justify-between">
       <div className="flex items-center justify-between">
-        <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">
+        <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-slate-600 dark:text-slate-400">
           {label}
         </p>
         <span className="flex h-7 w-7 items-center justify-center rounded-md bg-slate-100 text-slate-600 dark:bg-white/5 dark:text-slate-400">
@@ -199,7 +199,7 @@ function StatItem({
           </p>
         )}
         {subtext ? (
-          <p className="mt-1 font-mono text-[11px] text-slate-400 dark:text-slate-500">{subtext}</p>
+          <p className="mt-1 font-mono text-[11px] text-slate-600 dark:text-slate-400">{subtext}</p>
         ) : null}
       </div>
     </div>
@@ -244,7 +244,7 @@ export default function DashboardPage(): React.JSX.Element {
               Live Settlement
             </span>
           </div>
-          <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
+          <p className="mt-0.5 text-xs text-slate-600 dark:text-slate-400">
             Realtime multisig treasury and cryptographic payment rails on Stellar Horizon.
           </p>
         </div>
@@ -313,14 +313,14 @@ export default function DashboardPage(): React.JSX.Element {
         <div className="lg:col-span-5 relative rounded-xl border border-line/80 bg-white p-6 shadow-subtle dark:border-white/10 dark:bg-navy-900 flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <div>
-              <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+              <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">
                 Institutional Treasury Vault
               </span>
               <div className="mt-1 flex items-baseline gap-2">
                 <span className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-ink dark:text-white tabular-nums">
                   {TREASURY_BALANCE}
                 </span>
-                <span className="font-mono text-sm font-semibold text-brand dark:text-stellar-400">
+                <span className="font-mono text-sm font-semibold text-sky-700 dark:text-stellar-400">
                   XLM
                 </span>
               </div>
@@ -331,7 +331,7 @@ export default function DashboardPage(): React.JSX.Element {
           </div>
 
           <div className="mt-4 pt-4 border-t border-line/60 dark:border-white/5 flex items-center justify-between text-xs font-mono">
-            <div className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+            <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
               <span>Pegged Valuation:</span>
               <span className="font-bold text-ink dark:text-slate-200 tabular-nums">
                 $
@@ -411,7 +411,7 @@ export default function DashboardPage(): React.JSX.Element {
             <h2 className="text-sm font-semibold tracking-tight text-ink dark:text-slate-100">
               Recent activity
             </h2>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
+            <p className="text-xs text-slate-600 dark:text-slate-400">
               Immutable ledger operations confirmed on the Stellar network.
             </p>
           </div>
@@ -427,7 +427,7 @@ export default function DashboardPage(): React.JSX.Element {
                   'tactile-btn rounded-md px-2.5 py-1 text-[11px] font-mono font-medium transition-all',
                   filter === t
                     ? 'bg-white text-ink shadow-sm dark:bg-white/10 dark:text-white font-semibold'
-                    : 'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200'
+                    : 'text-slate-700 hover:text-slate-950 dark:text-slate-300 dark:hover:text-slate-100'
                 )}
               >
                 {t === 'ALL' ? 'All Rows' : t === 'SETTLED' ? 'Settled' : 'Pending'}
@@ -444,7 +444,7 @@ export default function DashboardPage(): React.JSX.Element {
         >
           <table className="w-full text-sm">
             <thead className="sticky top-0 bg-slate-50/90 dark:bg-navy-950/90 backdrop-blur-sm border-b border-line dark:border-white/10">
-              <tr className="text-left text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              <tr className="text-left text-[11px] font-mono uppercase tracking-wider text-slate-700 dark:text-slate-300">
                 <th scope="col" className="px-4 py-2.5 font-medium">
                   Date
                 </th>
@@ -490,7 +490,7 @@ export default function DashboardPage(): React.JSX.Element {
                       aria-label={`Payment ${p.referenceId}`}
                       className="cursor-pointer transition-colors duration-100 hover:bg-slate-50/80 dark:hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand"
                     >
-                      <td className="whitespace-nowrap px-4 py-3 font-mono text-xs text-slate-500 dark:text-slate-400">
+                      <td className="whitespace-nowrap px-4 py-3 font-mono text-xs text-slate-600 dark:text-slate-400">
                         {new Date(p.createdAt).toLocaleDateString('en-US', {
                           month: 'short',
                           day: 'numeric',
@@ -505,7 +505,7 @@ export default function DashboardPage(): React.JSX.Element {
                             onClick={(e) => copyHash(p.id, e)}
                             title="Copy payment ID"
                             aria-label={`Copy payment ID ${p.id}`}
-                            className="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+                            className="p-1 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200"
                           >
                             {copiedId === p.id ? (
                               <Check size={12} className="text-emerald-500" />
@@ -522,13 +522,13 @@ export default function DashboardPage(): React.JSX.Element {
                       </td>
                       <td className="whitespace-nowrap px-4 py-3 text-right font-mono text-xs font-semibold tabular-nums text-ink dark:text-slate-100">
                         {p.amountXlm}{' '}
-                        <span className="text-[10px] text-slate-400 dark:text-slate-500">XLM</span>
+                        <span className="text-[10px] text-slate-600 dark:text-slate-400">XLM</span>
                       </td>
                       <td className="whitespace-nowrap px-4 py-3">
                         <StatusBadge status={p.status} />
                       </td>
                       <td
-                        className="whitespace-nowrap px-4 py-3 font-mono text-xs text-slate-500 dark:text-slate-400"
+                        className="whitespace-nowrap px-4 py-3 font-mono text-xs text-slate-600 dark:text-slate-400"
                         title={p.destination}
                       >
                         {truncateAddress(p.destination)}
@@ -539,7 +539,7 @@ export default function DashboardPage(): React.JSX.Element {
           </table>
           {!recent.isPending && filteredRows.length === 0 ? (
             <div className="px-4 py-12 text-center">
-              <p className="font-mono text-xs text-slate-400 dark:text-slate-500">
+              <p className="font-mono text-xs text-slate-600 dark:text-slate-400">
                 No recent activity matching the current filter.
               </p>
             </div>

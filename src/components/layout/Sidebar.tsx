@@ -84,11 +84,11 @@ function BrandLogo(): React.JSX.Element {
           <span className="font-display text-sm font-bold tracking-tight text-ink dark:text-white">
             StellarRail
           </span>
-          <span className="rounded border border-line bg-slate-100 px-1 py-0.2 font-mono text-[9px] font-semibold tracking-wider text-slate-500 dark:border-white/10 dark:bg-navy-800 dark:text-slate-400">
+          <span className="rounded border border-line bg-slate-100 px-1 py-0.2 font-mono text-[9px] font-semibold tracking-wider text-slate-700 dark:border-white/10 dark:bg-navy-800 dark:text-slate-300">
             PRO
           </span>
         </div>
-        <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">
+        <span className="text-[10px] font-mono text-slate-600 dark:text-slate-400">
           Institutional Rails
         </span>
       </div>
@@ -105,7 +105,7 @@ function Nav(): React.JSX.Element {
   return (
     <nav aria-label="Primary" className="space-y-4">
       <div>
-        <p className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 font-mono">
+        <p className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 font-mono">
           Operations
         </p>
         <ul className="space-y-1">
@@ -122,7 +122,7 @@ function Nav(): React.JSX.Element {
                     'tactile-btn relative flex h-9 items-center justify-between rounded-lg px-3 text-xs font-medium transition-all duration-150',
                     active
                       ? 'bg-navy-900 text-white shadow-sm dark:bg-white/10 dark:text-white font-semibold'
-                      : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-slate-200'
+                      : 'text-slate-700 hover:bg-slate-100 hover:text-slate-950 dark:text-slate-300 dark:hover:bg-white/5 dark:hover:text-slate-100'
                   )}
                 >
                   <div className="flex items-center gap-2.5">
@@ -133,7 +133,7 @@ function Nav(): React.JSX.Element {
                       className={cn(
                         active
                           ? 'text-white dark:text-stellar-400'
-                          : 'text-slate-400 dark:text-slate-500'
+                          : 'text-slate-500 dark:text-slate-400'
                       )}
                     />
                     <span>{l.label}</span>
@@ -157,7 +157,9 @@ function Nav(): React.JSX.Element {
                       <span
                         className={cn(
                           'hidden text-[10px] font-mono tracking-tight group-hover:inline lg:inline',
-                          active ? 'text-slate-300/60 dark:text-slate-400' : 'text-slate-400/60'
+                          active
+                            ? 'text-slate-300/60 dark:text-slate-400'
+                            : 'text-slate-500/80 dark:text-slate-400'
                         )}
                       >
                         {l.shortcut}
@@ -172,23 +174,23 @@ function Nav(): React.JSX.Element {
       </div>
 
       <div className="pt-2">
-        <p className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 font-mono">
+        <p className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 font-mono">
           Settlement Rail
         </p>
         <div className="rounded-lg border border-line/80 bg-slate-50/70 p-3 dark:border-white/5 dark:bg-navy-900/50">
           <div className="flex items-center justify-between text-xs font-medium text-ink dark:text-slate-200">
             <span className="flex items-center gap-1.5">
-              <Layers size={13} className="text-brand dark:text-stellar-400" />
+              <Layers size={13} className="text-sky-700 dark:text-stellar-400" />
               <span>Multi-Sig Threshold</span>
             </span>
-            <span className="font-mono text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold">
+            <span className="font-mono text-[11px] text-emerald-700 dark:text-emerald-400 font-semibold">
               2 / 3
             </span>
           </div>
           <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
             <div className="h-full rounded-full bg-emerald-500 w-2/3 transition-all duration-300" />
           </div>
-          <div className="mt-2 flex items-center justify-between text-[10px] font-mono text-slate-500 dark:text-slate-400">
+          <div className="mt-2 flex items-center justify-between text-[10px] font-mono text-slate-600 dark:text-slate-400">
             <span>Enforced</span>
             <span>Secured Escrow</span>
           </div>
@@ -229,7 +231,7 @@ function UserFooter(): React.JSX.Element {
           <p className="truncate text-xs font-medium text-ink dark:text-slate-200">{user.email}</p>
           <div className="flex items-center gap-1.5">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-            <span className="font-mono text-[10px] capitalize text-slate-500 dark:text-slate-400">
+            <span className="font-mono text-[10px] capitalize text-slate-600 dark:text-slate-400">
               {user.role}
             </span>
           </div>
@@ -241,7 +243,7 @@ function UserFooter(): React.JSX.Element {
           onClick={() => {
             void logout().then(() => router.push('/login'))
           }}
-          className="tactile-btn rounded-md p-1.5 text-slate-400 hover:bg-slate-200/80 hover:text-rose-600 dark:hover:bg-white/10 dark:hover:text-rose-400 transition-colors"
+          className="tactile-btn rounded-md p-1.5 text-slate-600 hover:bg-slate-200/80 hover:text-rose-600 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-rose-400 transition-colors"
         >
           <LogOut size={15} strokeWidth={1.5} aria-hidden="true" />
         </button>

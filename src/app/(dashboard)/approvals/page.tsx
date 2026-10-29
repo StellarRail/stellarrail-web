@@ -123,13 +123,13 @@ function ReviewSheet({
       >
         <div className="border-b border-line/80 p-5 dark:border-white/10">
           <div className="flex items-center justify-between">
-            <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-slate-400">
+            <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">
               Multisig Authorization
             </span>
             <button
               type="button"
               onClick={onClose}
-              className="tactile-btn rounded p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+              className="tactile-btn rounded p-1 text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"
             >
               <X size={16} />
             </button>
@@ -141,13 +141,14 @@ function ReviewSheet({
             Review {payment.referenceId}
           </h2>
           <p className="mt-1 font-mono text-2xl font-bold tabular-nums text-ink dark:text-slate-100">
-            {payment.amountXlm} <span className="text-sm font-normal text-slate-400">XLM</span>
+            {payment.amountXlm}{' '}
+            <span className="text-sm font-normal text-slate-600 dark:text-slate-400">XLM</span>
           </p>
         </div>
 
         <dl className="flex-1 space-y-4 overflow-y-auto p-5 text-sm">
           <div className="rounded-lg border border-line/60 bg-slate-50/80 p-3 dark:border-white/5 dark:bg-navy-900/60">
-            <dt className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
+            <dt className="text-[10px] font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400">
               Destination
             </dt>
             <dd
@@ -159,7 +160,7 @@ function ReviewSheet({
           </div>
 
           <div className="rounded-lg border border-line/60 bg-slate-50/80 p-3 dark:border-white/5 dark:bg-navy-900/60">
-            <dt className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
+            <dt className="text-[10px] font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400">
               Requester
             </dt>
             <dd className="mt-1 text-xs font-medium text-ink dark:text-slate-200">
@@ -168,7 +169,7 @@ function ReviewSheet({
           </div>
 
           <div className="rounded-lg border border-line/60 bg-slate-50/80 p-3 dark:border-white/5 dark:bg-navy-900/60">
-            <dt className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
+            <dt className="text-[10px] font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400">
               Against spending limit
             </dt>
             <dd className="mt-1 text-xs text-slate-600 dark:text-slate-300">
@@ -360,7 +361,8 @@ export default function ApprovalsPage(): React.JSX.Element {
                   </span>
                 </span>
                 <span className="font-mono text-sm font-bold tabular-nums text-ink dark:text-white">
-                  {p.amountXlm} <span className="text-[10px] text-slate-400">XLM</span>
+                  {p.amountXlm}{' '}
+                  <span className="text-[10px] text-slate-600 dark:text-slate-400">XLM</span>
                 </span>
                 <Sla deadline={p.deadline} />
               </button>
@@ -391,7 +393,7 @@ export default function ApprovalsPage(): React.JSX.Element {
           <p className="text-sm font-medium text-slate-600 dark:text-slate-300">
             All caught up. Nothing awaiting approval.
           </p>
-          <p className="mt-1 text-xs text-slate-400">
+          <p className="mt-1 text-xs text-slate-600 dark:text-slate-400">
             New settlement requests requiring multisig sign-off will appear here in real-time.
           </p>
         </div>

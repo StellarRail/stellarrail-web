@@ -59,13 +59,13 @@ export default function LoginPage(): React.JSX.Element {
               <line x1="4" y1="22" x2="4" y2="15" />
             </svg>
           </div>
-          <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">
+          <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-slate-600 dark:text-slate-400">
             Stellar Settlement Rails
           </span>
           <h1 className="mt-1 text-2xl font-bold tracking-tight text-ink dark:text-white font-display">
             Login
           </h1>
-          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+          <p className="mt-1 text-xs text-slate-600 dark:text-slate-400">
             Authorized personnel only. Sessions authenticated via Soroban multisig keys.
           </p>
         </div>
@@ -129,7 +129,7 @@ export default function LoginPage(): React.JSX.Element {
                   type="button"
                   aria-label={showPw ? 'Hide password' : 'Show password'}
                   onClick={() => setShowPw((v) => !v)}
-                  className="tactile-btn absolute right-1.5 top-1/2 -translate-y-1/2 rounded p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                  className="tactile-btn absolute right-1.5 top-1/2 -translate-y-1/2 rounded p-1.5 text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"
                 >
                   {showPw ? <EyeOff size={15} /> : <Eye size={15} />}
                 </button>
@@ -165,9 +165,9 @@ export default function LoginPage(): React.JSX.Element {
             </Button>
           </form>
 
-          <div className="mt-6 border-t border-line/60 pt-4 dark:border-white/5 flex items-center justify-between text-[10px] font-mono text-slate-400">
+          <div className="mt-6 border-t border-line/60 pt-4 dark:border-white/5 flex items-center justify-between text-[10px] font-mono text-slate-600 dark:text-slate-400">
             <span className="flex items-center gap-1">
-              <ShieldCheck size={12} className="text-emerald-500" />
+              <ShieldCheck size={12} className="text-emerald-600 dark:text-emerald-400" />
               <span>TLS 1.3 Strict</span>
             </span>
             <span>Ed25519 Handshake</span>

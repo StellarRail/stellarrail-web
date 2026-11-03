@@ -9,6 +9,7 @@ import { loginRequest } from '@/features/auth/api'
 import { useAuthStore } from '@/stores/auth-store'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { BrandMark } from '@/components/ui/BrandLogo'
 import { cn } from '@/lib/cn'
 
 export default function LoginPage(): React.JSX.Element {
@@ -44,21 +45,7 @@ export default function LoginPage(): React.JSX.Element {
       <main className="relative z-10 w-full max-w-md animate-item-reveal">
         {/* Brand Terminal Header */}
         <div className="mb-6 flex flex-col items-center text-center">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-navy-900 text-white shadow-md dark:bg-stellar-500 dark:text-navy-950 mb-3">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
-              <line x1="4" y1="22" x2="4" y2="15" />
-            </svg>
-          </div>
+          <BrandMark size={48} className="mb-3 rounded-2xl shadow-md shrink-0" />
           <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-slate-600 dark:text-slate-400">
             Stellar Settlement Rails
           </span>

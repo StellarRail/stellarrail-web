@@ -15,6 +15,7 @@ import { useAuthStore } from '@/stores/auth-store'
 import { useUiStore } from '@/stores/ui-store'
 import { useLogout } from '@/hooks/hooks'
 import { cn } from '@/lib/cn'
+import { BrandMark } from '@/components/ui/BrandLogo'
 import type { Role } from '@/types'
 
 const links: {
@@ -64,22 +65,8 @@ const links: {
 function BrandLogo(): React.JSX.Element {
   return (
     <div className="flex items-center gap-2.5">
-      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-navy-900 text-white shadow-sm dark:bg-stellar-500 dark:text-navy-950">
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
-          <line x1="4" y1="22" x2="4" y2="15" />
-        </svg>
-      </div>
-      <div className="flex flex-col">
+      <BrandMark size={32} className="shrink-0 rounded-lg shadow-sm" />
+      <div className="flex flex-col min-w-0">
         <div className="flex items-center gap-1.5">
           <span className="font-display text-sm font-bold tracking-tight text-ink dark:text-white">
             StellarRail

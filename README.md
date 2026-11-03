@@ -1,16 +1,26 @@
-[![CI](https://github.com/StellarRail/stellarrail-web/actions/workflows/ci.yml/badge.svg)](https://github.com/StellarRail/stellarrail-web/actions/workflows/ci.yml)
-[![E2E](https://github.com/StellarRail/stellarrail-web/actions/workflows/e2e.yml/badge.svg)](https://github.com/StellarRail/stellarrail-web/actions/workflows/e2e.yml)
-[![Image](https://img.shields.io/badge/image-ghcr.io-blue)](https://github.com/StellarRail/stellarrail-web/pkgs/container/stellarrail-web)
+<p align="center">
+  <img src="assets/banner.svg" alt="StellarRail Web Banner" width="100%" />
+</p>
 
-# StellarRail Web
+<p align="center">
+  <a href="https://github.com/StellarRail/stellarrail-web/actions/workflows/ci.yml"><img src="https://github.com/StellarRail/stellarrail-web/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+  <a href="https://github.com/StellarRail/stellarrail-web/actions/workflows/e2e.yml"><img src="https://github.com/StellarRail/stellarrail-web/actions/workflows/e2e.yml/badge.svg" alt="E2E" /></a>
+  <a href="https://github.com/StellarRail/stellarrail-web/pkgs/container/stellarrail-web"><img src="https://img.shields.io/badge/image-ghcr.io-blue" alt="Image" /></a>
+  <img src="https://img.shields.io/badge/Next.js-15.5-000000?logo=next.js&logoColor=white" alt="Next.js" />
+  <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black" alt="React" />
+  <img src="https://img.shields.io/badge/Tailwind-3.4-38BDF8?logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License" />
+</p>
 
-Operator / approver / admin dashboard for StellarRail payments.
+---
+
+## Overview
+
+**StellarRail Web** is the institutional settlement terminal for StellarRail operations. It provides operators, approvers, and administrators with real-time payment orchestration, dual-signature approval queues, on-chain Soroban contract telemetry, and high-density audit observability.
 
 - **Stack:** Next.js 15.5.27 (App Router, `output: standalone`) + TypeScript 5.4 strict + TanStack Query 5 + Zustand 4 + Tailwind 3.4 + shadcn/UI + `react-hook-form`/Zod + `next-intl` + Sentry
 - **Version:** `1.0.0-rc1` · License: MIT
-- **Org docs:** [profile](https://github.com/StellarRail/.github/blob/main/profile/README.md) ·
-  [architecture](https://github.com/StellarRail/.github/blob/main/docs/ARCHITECTURE.md) ·
-  [contributing](https://github.com/StellarRail/.github/blob/main/CONTRIBUTING.md)
+- **Org docs:** [profile](https://github.com/StellarRail/.github/blob/main/profile/README.md) · [architecture](https://github.com/StellarRail/.github/blob/main/docs/ARCHITECTURE.md) · [contributing](https://github.com/StellarRail/.github/blob/main/CONTRIBUTING.md)
 
 ## Structure
 

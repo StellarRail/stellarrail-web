@@ -12,10 +12,16 @@ export const metadata: Metadata = {
   title: 'StellarRail — XLM Payments Dashboard',
   description:
     'Production-ready XLM payment operations: operators, approvers, admins. Testnet + Mainnet.',
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/logo-mark.svg'
+  },
   openGraph: {
     title: 'StellarRail',
     description: 'XLM-only payment rail dashboard',
-    type: 'website'
+    type: 'website',
+    images: ['/logo-mark.svg']
   }
 }
 

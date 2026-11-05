@@ -15,9 +15,7 @@ export async function loginRequest(
   if (!r.ok) throw new Error('Invalid credentials')
   return (await r.json()) as { mfaRequired: boolean }
 }
-export async function mfaRequest(
-  code: string
-): Promise<{
+export async function mfaRequest(code: string): Promise<{
   accessToken: string
   expiresIn: number
   user: { id: string; email: string; role: 'operator' | 'approver' | 'admin'; mfaEnabled: boolean }

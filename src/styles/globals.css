@@ -3,40 +3,48 @@
 @tailwind utilities;
 
 :root {
-  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
-  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
-  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.15);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 
-  --bg-base: #ffffff;
   --bg-canvas: #f8fafc;
-  --surface: #ffffff;
-  --surface-raised: #f1f5f9;
+  --bg-surface: #ffffff;
+  --bg-surface-subtle: #f1f5f9;
   --border: #e2e8f0;
   --border-subtle: #f1f5f9;
-  --border-hover: #cbd5e1;
+  --border-strong: #cbd5e1;
   --text-primary: #0f172a;
   --text-secondary: #475569;
+  --text-muted: #64748b;
   --brand: #0284c7;
   --brand-hover: #0369a1;
+  --brand-subtle: #e0f2fe;
   --success: #059669;
+  --success-subtle: #ecfdf5;
   --warning: #d97706;
+  --warning-subtle: #fffbeb;
   --danger: #dc2626;
-  --navy-900: #0a1528;
-  --stellar-500: #00b5e3;
+  --danger-subtle: #fef2f2;
 }
 
 .dark {
-  --bg-base: #090d16;
-  --bg-canvas: #060911;
-  --surface: #0c1220;
-  --surface-raised: #111a2e;
-  --border: rgba(255, 255, 255, 0.08);
-  --border-subtle: rgba(255, 255, 255, 0.04);
-  --border-hover: rgba(255, 255, 255, 0.16);
+  --bg-canvas: #090d16;
+  --bg-surface: #0f172a;
+  --bg-surface-subtle: #1e293b;
+  --border: rgba(255, 255, 255, 0.1);
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-strong: rgba(255, 255, 255, 0.18);
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
+  --text-muted: #64748b;
   --brand: #0ea5e9;
   --brand-hover: #38bdf8;
+  --brand-subtle: rgba(14, 165, 233, 0.12);
+  --success: #10b981;
+  --success-subtle: rgba(16, 185, 129, 0.12);
+  --warning: #f59e0b;
+  --warning-subtle: rgba(245, 158, 11, 0.12);
+  --danger: #ef4444;
+  --danger-subtle: rgba(239, 68, 68, 0.12);
 }
 
 html {
@@ -88,7 +96,7 @@ a:focus-visible {
   left: -9999px;
   top: 0;
   z-index: 100;
-  transition: transform 160ms var(--ease-out);
+  transition: transform 150ms var(--ease-out);
 }
 .skip-link:focus {
   left: 0.75rem;
@@ -100,68 +108,32 @@ a:focus-visible {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Emil Kowalski - Tactile Micro-Interactions */
+/* Subtle, calm interactive feedback */
 .tactile-btn {
   transition:
-    transform 140ms var(--ease-out),
-    background-color 140ms var(--ease-out),
-    border-color 140ms var(--ease-out),
-    color 140ms var(--ease-out),
-    box-shadow 140ms var(--ease-out);
-  will-change: transform;
-}
-.tactile-btn:active {
-  transform: scale(0.975) translateY(0.5px);
+    background-color 120ms ease,
+    border-color 120ms ease,
+    color 120ms ease,
+    box-shadow 120ms ease;
 }
 
 .tactile-card {
   transition:
-    transform 180ms var(--ease-out),
-    border-color 180ms var(--ease-out),
-    box-shadow 180ms var(--ease-out);
-  will-change: transform;
-}
-@media (hover: hover) and (pointer: fine) {
-  .tactile-card:hover {
-    transform: translateY(-1px);
-  }
+    border-color 150ms ease,
+    box-shadow 150ms ease;
 }
 
-/* Subtle Architectural Grid Pattern (Non-Neon, Non-Distracting) */
-.rail-pattern {
-  background-image: radial-gradient(rgba(148, 163, 184, 0.12) 1px, transparent 0);
-  background-size: 24px 24px;
-}
-.dark .rail-pattern {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 0);
-}
-
-/* Mechanical Transaction Flow Kinetics (Hardware Accelerated) */
-@keyframes rail-flow {
-  from {
-    stroke-dashoffset: 40;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-.animate-rail-flow {
-  animation: rail-flow 1.8s linear infinite;
-}
-
-/* Staggered Mount Sequence */
 @keyframes item-reveal {
   from {
     opacity: 0;
-    transform: translateY(6px) scale(0.99);
+    transform: translateY(4px);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 }
 
 .animate-item-reveal {
-  animation: item-reveal 240ms var(--ease-out) forwards;
+  animation: item-reveal 180ms var(--ease-out) forwards;
 }

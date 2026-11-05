@@ -3,14 +3,13 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Eye, EyeOff, Lock, ShieldCheck, ArrowRight, ShieldAlert } from 'lucide-react'
+import { Eye, EyeOff, Lock, ShieldCheck, ArrowRight, AlertCircle } from 'lucide-react'
 import { loginSchema, type LoginInput } from '@/features/auth/schemas'
 import { loginRequest } from '@/features/auth/api'
 import { useAuthStore } from '@/stores/auth-store'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { BrandMark } from '@/components/ui/BrandLogo'
-import { cn } from '@/lib/cn'
 
 export default function LoginPage(): React.JSX.Element {
   const router = useRouter()
@@ -18,7 +17,8 @@ export default function LoginPage(): React.JSX.Element {
   const [serverError, setServerError] = useState('')
   const [showPw, setShowPw] = useState(false)
   const [caps, setCaps] = useState(false)
-  const { register, handleSubmit, formState } = useForm<LoginInput>({
+
+  const { register, handleSubmit, setValue, formState } = useForm<LoginInput>({
     resolver: zodResolver(loginSchema)
   })
 
@@ -37,42 +37,45 @@ export default function LoginPage(): React.JSX.Element {
     }
   }
 
-  return (
-    <div className="relative flex min-h-[100dvh] items-center justify-center bg-canvas p-4 transition-colors dark:bg-navy-950">
-      {/* Background Architectural Mesh Grid */}
-      <div className="absolute inset-0 rail-pattern opacity-40 pointer-events-none" />
+  const fillQuick = (email: string) => {
+    setValue('email', email, { shouldValidate: true })
+    setValue('password', 'password123', { shouldValidate: true })
+  }
 
-      <main className="relative z-10 w-full max-w-md animate-item-reveal">
-        {/* Brand Terminal Header */}
-        <div className="mb-6 flex flex-col items-center text-center">
-          <BrandMark size={48} className="mb-3 rounded-2xl shadow-md shrink-0" />
-          <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-slate-600 dark:text-slate-400">
-            Stellar Settlement Rails
+  return (
+    <div className="flex min-h-[100dvh] items-center justify-center bg-slate-50 p-4 dark:bg-slate-950 transition-colors">
+      <main className="w-full max-w-md animate-item-reveal space-y-6">
+        {/* Brand Header */}
+        <div className="flex flex-col items-center text-center">
+          <BrandMark size={36} className="mb-3" />
+          <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            Stellar Treasury Operations
           </span>
-          <h1 className="mt-1 text-2xl font-bold tracking-tight text-ink dark:text-white font-display">
+          <h1 className="mt-1 text-2xl font-bold tracking-tight text-slate-900 dark:text-white font-display">
             Login
           </h1>
-          <p className="mt-1 text-xs text-slate-600 dark:text-slate-400">
-            Authorized personnel only. Sessions authenticated via Soroban multisig keys.
+          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 max-w-xs">
+            Authenticate to manage institutional XLM reserves, multisig approvals, and settlement
+            ledgers.
           </p>
         </div>
 
-        {/* Auth Card Container */}
-        <div className="rounded-2xl border border-line/80 bg-white p-7 shadow-subtle dark:border-white/10 dark:bg-navy-900/90 backdrop-blur-md">
+        {/* Card Form */}
+        <div className="rounded-xl border border-slate-200 bg-white p-7 shadow-sm dark:border-slate-800 dark:bg-slate-900">
           <form onSubmit={(e) => void handleSubmit(onSubmit)(e)} className="space-y-4" noValidate>
             <div>
               <label
                 htmlFor="email"
                 className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 font-mono mb-1.5"
               >
-                Email
+                Work Email
               </label>
               <Input
                 id="email"
                 type="email"
                 placeholder="operator@stellarrail.org"
                 autoComplete="email"
-                aria-describedby="email-err"
+                aria-describedby={formState.errors.email ? 'email-err' : undefined}
                 {...register('email')}
                 className="font-mono text-xs"
               />
@@ -80,7 +83,7 @@ export default function LoginPage(): React.JSX.Element {
                 <p
                   id="email-err"
                   role="alert"
-                  className="mt-1.5 text-xs text-rose-600 dark:text-rose-400 font-mono"
+                  className="mt-1 text-xs text-rose-600 dark:text-rose-400 font-mono"
                 >
                   {formState.errors.email.message}
                 </p>
@@ -101,13 +104,13 @@ export default function LoginPage(): React.JSX.Element {
                   </span>
                 ) : null}
               </div>
-              <div className="relative flex">
+              <div className="relative">
                 <Input
                   id="password"
                   type={showPw ? 'text' : 'password'}
                   placeholder="••••••••••••"
                   autoComplete="current-password"
-                  aria-describedby="pw-err"
+                  aria-describedby={formState.errors.password ? 'pw-err' : undefined}
                   onKeyUp={(e) => setCaps(e.getModifierState?.('CapsLock') ?? false)}
                   {...register('password')}
                   className="font-mono text-xs pr-10"
@@ -116,16 +119,16 @@ export default function LoginPage(): React.JSX.Element {
                   type="button"
                   aria-label={showPw ? 'Hide password' : 'Show password'}
                   onClick={() => setShowPw((v) => !v)}
-                  className="tactile-btn absolute right-1.5 top-1/2 -translate-y-1/2 rounded p-1.5 text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"
+                  className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded p-1.5 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
                 >
-                  {showPw ? <EyeOff size={15} /> : <Eye size={15} />}
+                  {showPw ? <EyeOff size={14} /> : <Eye size={14} />}
                 </button>
               </div>
               {formState.errors.password ? (
                 <p
                   id="pw-err"
                   role="alert"
-                  className="mt-1.5 text-xs text-rose-600 dark:text-rose-400 font-mono"
+                  className="mt-1 text-xs text-rose-600 dark:text-rose-400 font-mono"
                 >
                   {formState.errors.password.message}
                 </p>
@@ -135,9 +138,9 @@ export default function LoginPage(): React.JSX.Element {
             {serverError ? (
               <div
                 role="alert"
-                className="flex items-center gap-2 rounded-lg border border-rose-300 bg-rose-50 p-2.5 text-xs text-rose-800 dark:border-rose-900 dark:bg-rose-950/60 dark:text-rose-300"
+                className="flex items-center gap-2 rounded-lg border border-rose-300 bg-rose-50 p-2.5 text-xs text-rose-900 dark:border-rose-900 dark:bg-rose-950 dark:text-rose-200"
               >
-                <ShieldAlert size={14} className="shrink-0 text-rose-600" />
+                <AlertCircle size={14} className="shrink-0 text-rose-600" />
                 <span>{serverError}</span>
               </div>
             ) : null}
@@ -145,20 +148,51 @@ export default function LoginPage(): React.JSX.Element {
             <Button
               type="submit"
               disabled={formState.isSubmitting}
-              className="tactile-btn min-h-[42px] w-full bg-navy-900 text-sm font-semibold text-white shadow-subtle hover:bg-navy-800 dark:bg-stellar-500 dark:text-navy-950 dark:hover:bg-stellar-400"
+              className="w-full h-10 bg-slate-900 text-sm font-semibold text-white hover:bg-slate-800 dark:bg-sky-600 dark:text-white dark:hover:bg-sky-500"
             >
               <Lock size={14} className="mr-1.5" />
-              <span>{formState.isSubmitting ? 'Signing in…' : 'Sign in'}</span>
+              <span>{formState.isSubmitting ? 'Verifying credentials…' : 'Sign in'}</span>
             </Button>
           </form>
 
-          <div className="mt-6 border-t border-line/60 pt-4 dark:border-white/5 flex items-center justify-between text-[10px] font-mono text-slate-600 dark:text-slate-400">
-            <span className="flex items-center gap-1">
-              <ShieldCheck size={12} className="text-emerald-600 dark:text-emerald-400" />
-              <span>TLS 1.3 Strict</span>
-            </span>
-            <span>Ed25519 Handshake</span>
+          {/* Quick Demo Credential Selectors */}
+          <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800">
+            <p className="text-[10px] uppercase font-mono tracking-wider text-slate-400 mb-2">
+              Fast Demo Sign-in
+            </p>
+            <div className="grid grid-cols-3 gap-2">
+              <button
+                type="button"
+                onClick={() => fillQuick('operator@stellarrail.test')}
+                className="rounded border border-slate-200 bg-slate-50 px-2 py-1 text-[11px] font-mono text-slate-700 hover:bg-slate-100 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-300"
+              >
+                Operator
+              </button>
+              <button
+                type="button"
+                onClick={() => fillQuick('approver@stellarrail.test')}
+                className="rounded border border-slate-200 bg-slate-50 px-2 py-1 text-[11px] font-mono text-slate-700 hover:bg-slate-100 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-300"
+              >
+                Approver
+              </button>
+              <button
+                type="button"
+                onClick={() => fillQuick('admin@stellarrail.test')}
+                className="rounded border border-slate-200 bg-slate-50 px-2 py-1 text-[11px] font-mono text-slate-700 hover:bg-slate-100 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-300"
+              >
+                Admin
+              </button>
+            </div>
           </div>
+        </div>
+
+        {/* Security Assurance Footer */}
+        <div className="flex items-center justify-between text-[11px] font-mono text-slate-500 px-2">
+          <span className="flex items-center gap-1">
+            <ShieldCheck size={13} className="text-emerald-600 dark:text-emerald-400" />
+            <span>TLS 1.3 Certified</span>
+          </span>
+          <span>Soroban Consensus v21</span>
         </div>
       </main>
     </div>

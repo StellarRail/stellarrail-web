@@ -4,12 +4,13 @@ import { usePathname, useRouter } from 'next/navigation'
 import {
   LayoutDashboard,
   ArrowLeftRight,
-  Inbox,
+  ShieldCheck,
+  Bell,
   ScrollText,
-  Settings,
+  Sliders,
   LogOut,
   Layers,
-  Sparkles
+  ExternalLink
 } from 'lucide-react'
 import { useAuthStore } from '@/stores/auth-store'
 import { useUiStore } from '@/stores/ui-store'
@@ -18,7 +19,7 @@ import { cn } from '@/lib/cn'
 import { BrandMark } from '@/components/ui/BrandLogo'
 import type { Role } from '@/types'
 
-const links: {
+const primaryNav: {
   href: string
   label: string
   roles: Role[]
@@ -43,9 +44,24 @@ const links: {
     href: '/approvals',
     label: 'Approvals',
     roles: ['approver', 'admin'],
-    icon: Inbox,
+    icon: ShieldCheck,
     shortcut: '⌘3'
   },
+  {
+    href: '/notifications',
+    label: 'Notifications',
+    roles: ['operator', 'approver', 'admin'],
+    icon: Bell
+  }
+]
+
+const complianceNav: {
+  href: string
+  label: string
+  roles: Role[]
+  icon: typeof ScrollText
+  shortcut?: string
+}[] = [
   {
     href: '/admin/audit',
     label: 'Audit Log',
@@ -55,9 +71,9 @@ const links: {
   },
   {
     href: '/admin/limits',
-    label: 'Settings',
+    label: 'Settings & Limits',
     roles: ['admin'],
-    icon: Settings,
+    icon: Sliders,
     shortcut: '⌘5'
   }
 ]
@@ -65,18 +81,18 @@ const links: {
 function BrandLogo(): React.JSX.Element {
   return (
     <div className="flex items-center gap-2.5">
-      <BrandMark size={32} className="shrink-0 rounded-lg shadow-sm" />
+      <BrandMark size={28} className="shrink-0" />
       <div className="flex flex-col min-w-0">
         <div className="flex items-center gap-1.5">
-          <span className="font-display text-sm font-bold tracking-tight text-ink dark:text-white">
+          <span className="font-display text-sm font-bold tracking-tight text-slate-900 dark:text-white">
             StellarRail
           </span>
-          <span className="rounded border border-line bg-slate-100 px-1 py-0.2 font-mono text-[9px] font-semibold tracking-wider text-slate-700 dark:border-white/10 dark:bg-navy-800 dark:text-slate-300">
-            PRO
+          <span className="rounded border border-slate-200 bg-slate-100 px-1 py-0.2 font-mono text-[9px] font-semibold tracking-wider text-slate-600 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-300">
+            TREASURY
           </span>
         </div>
-        <span className="text-[10px] font-mono text-slate-600 dark:text-slate-400">
-          Institutional Rails
+        <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
+          XLM Settlement Rails
         </span>
       </div>
     </div>
@@ -87,16 +103,18 @@ function Nav(): React.JSX.Element {
   const user = useAuthStore((s) => s.user)
   const role: Role = user?.role ?? 'operator'
   const pathname = usePathname()
-  const visible = links.filter((l) => l.roles.includes(role))
+
+  const visiblePrimary = primaryNav.filter((l) => l.roles.includes(role))
+  const visibleCompliance = complianceNav.filter((l) => l.roles.includes(role))
 
   return (
-    <nav aria-label="Primary" className="space-y-4">
+    <nav aria-label="Primary navigation" className="space-y-5">
       <div>
-        <p className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 font-mono">
+        <p className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 font-mono">
           Operations
         </p>
-        <ul className="space-y-1">
-          {visible.map((l) => {
+        <ul className="space-y-0.5">
+          {visiblePrimary.map((l) => {
             const active = pathname === l.href || (l.href !== '/' && pathname.startsWith(l.href))
             const Icon = l.icon
             return (
@@ -104,23 +122,21 @@ function Nav(): React.JSX.Element {
                 <Link
                   href={l.href}
                   aria-current={active ? 'page' : undefined}
-                  aria-label={l.label}
                   className={cn(
-                    'tactile-btn relative flex h-9 items-center justify-between rounded-lg px-3 text-xs font-medium transition-all duration-150',
+                    'flex h-9 items-center justify-between rounded-md px-3 text-xs font-medium transition-colors',
                     active
-                      ? 'bg-navy-900 text-white shadow-sm dark:bg-white/10 dark:text-white font-semibold'
-                      : 'text-slate-700 hover:bg-slate-100 hover:text-slate-950 dark:text-slate-300 dark:hover:bg-white/5 dark:hover:text-slate-100'
+                      ? 'bg-slate-900 text-white font-semibold dark:bg-slate-800 dark:text-white'
+                      : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800/60 dark:hover:text-white'
                   )}
                 >
                   <div className="flex items-center gap-2.5">
                     <Icon
                       size={15}
-                      strokeWidth={active ? 2 : 1.6}
                       aria-hidden="true"
                       className={cn(
                         active
-                          ? 'text-white dark:text-stellar-400'
-                          : 'text-slate-500 dark:text-slate-400'
+                          ? 'text-white dark:text-sky-400'
+                          : 'text-slate-400 dark:text-slate-500'
                       )}
                     />
                     <span>{l.label}</span>
@@ -131,22 +147,23 @@ function Nav(): React.JSX.Element {
                       <span
                         data-testid="pending-badge"
                         className={cn(
-                          'rounded-full px-1.5 py-0.2 text-[11px] font-mono font-bold tabular-nums',
+                          'rounded-full px-1.5 py-0.2 text-[10px] font-mono font-bold tabular-nums',
                           active
-                            ? 'bg-amber-400 text-navy-950'
-                            : 'bg-amber-100 text-amber-900 dark:bg-amber-950/80 dark:text-amber-300 border border-amber-300/40'
+                            ? 'bg-amber-400 text-slate-950'
+                            : 'bg-amber-100 text-amber-900 border border-amber-300 dark:bg-amber-950 dark:text-amber-300 dark:border-amber-800'
                         )}
                       >
                         4
                       </span>
                     ) : null}
+                    {l.href === '/notifications' ? (
+                      <span className="h-1.5 w-1.5 rounded-full bg-sky-600 dark:bg-sky-400" />
+                    ) : null}
                     {l.shortcut ? (
                       <span
                         className={cn(
-                          'hidden text-[10px] font-mono tracking-tight group-hover:inline lg:inline',
-                          active
-                            ? 'text-slate-300 dark:text-slate-300'
-                            : 'text-slate-700 dark:text-slate-300'
+                          'hidden font-mono text-[10px] lg:inline',
+                          active ? 'text-slate-400' : 'text-slate-400'
                         )}
                       >
                         {l.shortcut}
@@ -160,26 +177,85 @@ function Nav(): React.JSX.Element {
         </ul>
       </div>
 
+      {visibleCompliance.length > 0 ? (
+        <div>
+          <p className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 font-mono">
+            Administration &amp; Audit
+          </p>
+          <ul className="space-y-0.5">
+            {visibleCompliance.map((l) => {
+              const active = pathname === l.href || pathname.startsWith(l.href)
+              const Icon = l.icon
+              return (
+                <li key={l.href}>
+                  <Link
+                    href={l.href}
+                    aria-current={active ? 'page' : undefined}
+                    className={cn(
+                      'flex h-9 items-center justify-between rounded-md px-3 text-xs font-medium transition-colors',
+                      active
+                        ? 'bg-slate-900 text-white font-semibold dark:bg-slate-800 dark:text-white'
+                        : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800/60 dark:hover:text-white'
+                    )}
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <Icon
+                        size={15}
+                        aria-hidden="true"
+                        className={cn(
+                          active
+                            ? 'text-white dark:text-sky-400'
+                            : 'text-slate-400 dark:text-slate-500'
+                        )}
+                      />
+                      <span>{l.label}</span>
+                    </div>
+                    {l.shortcut ? (
+                      <span
+                        className={cn(
+                          'hidden font-mono text-[10px] lg:inline',
+                          active ? 'text-slate-400' : 'text-slate-400'
+                        )}
+                      >
+                        {l.shortcut}
+                      </span>
+                    ) : null}
+                  </Link>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+      ) : null}
+
+      {/* Multisig Policy Status Card */}
       <div className="pt-2">
-        <p className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 font-mono">
-          Settlement Rail
+        <p className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 font-mono">
+          Governance Policy
         </p>
-        <div className="rounded-lg border border-line/80 bg-slate-50/70 p-3 dark:border-white/5 dark:bg-navy-900/50">
-          <div className="flex items-center justify-between text-xs font-medium text-ink dark:text-slate-200">
+        <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 dark:border-slate-800 dark:bg-slate-900/60">
+          <div className="flex items-center justify-between text-xs font-medium text-slate-900 dark:text-slate-200">
             <span className="flex items-center gap-1.5">
-              <Layers size={13} className="text-sky-700 dark:text-stellar-400" />
+              <Layers size={13} className="text-sky-600 dark:text-sky-400" aria-hidden="true" />
               <span>Multi-Sig Threshold</span>
             </span>
-            <span className="font-mono text-[11px] text-emerald-700 dark:text-emerald-400 font-semibold">
+            <span className="font-mono text-[11px] font-bold text-emerald-700 dark:text-emerald-400">
               2 / 3
             </span>
           </div>
-          <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
-            <div className="h-full rounded-full bg-emerald-500 w-2/3 transition-all duration-300" />
+          <div
+            className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800"
+            role="progressbar"
+            aria-valuenow={67}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-label="Multisig quorum status: 2 of 3 required signatures"
+          >
+            <div className="h-full rounded-full bg-emerald-600 dark:bg-emerald-500 w-2/3" />
           </div>
-          <div className="mt-2 flex items-center justify-between text-[10px] font-mono text-slate-600 dark:text-slate-400">
+          <div className="mt-2 flex items-center justify-between text-[10px] font-mono text-slate-500 dark:text-slate-400">
             <span>Enforced</span>
-            <span>Secured Escrow</span>
+            <span>Non-Custodial Escrow</span>
           </div>
         </div>
       </div>
@@ -194,10 +270,10 @@ function UserFooter(): React.JSX.Element {
 
   if (!user) {
     return (
-      <div className="border-t border-line/80 p-3 dark:border-white/10">
+      <div className="border-t border-slate-200 p-3 dark:border-slate-800">
         <Link
           href="/login"
-          className="tactile-btn flex h-9 w-full items-center justify-center rounded-lg border border-line bg-white text-xs font-medium text-ink hover:bg-slate-50 dark:border-white/10 dark:bg-navy-900 dark:text-slate-200"
+          className="flex h-9 w-full items-center justify-center rounded-md border border-slate-200 bg-white text-xs font-medium text-slate-900 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100"
         >
           Sign in
         </Link>
@@ -206,33 +282,35 @@ function UserFooter(): React.JSX.Element {
   }
 
   return (
-    <div className="border-t border-line/80 p-3 dark:border-white/10">
-      <div className="flex items-center gap-2.5 rounded-lg border border-line/60 bg-slate-50/80 p-2 dark:border-white/5 dark:bg-navy-900/60">
+    <div className="border-t border-slate-200 p-3 dark:border-slate-800">
+      <div className="flex items-center gap-2.5 rounded-lg border border-slate-200 bg-slate-50 p-2.5 dark:border-slate-800 dark:bg-slate-900/60">
         <div
           aria-hidden="true"
-          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-navy-900 text-xs font-semibold text-white shadow-sm dark:bg-slate-200 dark:text-navy-950"
+          className="flex h-7 w-7 shrink-0 items-center justify-center rounded bg-slate-900 text-xs font-semibold text-white dark:bg-slate-100 dark:text-slate-900"
         >
           {user.email.slice(0, 1).toUpperCase()}
         </div>
         <div className="min-w-0 flex-1">
-          <p className="truncate text-xs font-medium text-ink dark:text-slate-200">{user.email}</p>
+          <p className="truncate text-xs font-medium text-slate-900 dark:text-slate-100">
+            {user.email}
+          </p>
           <div className="flex items-center gap-1.5">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-            <span className="font-mono text-[10px] capitalize text-slate-600 dark:text-slate-400">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
+            <span className="font-mono text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400">
               {user.role}
             </span>
           </div>
         </div>
         <button
           type="button"
-          aria-label="Logout"
-          title="Logout"
+          aria-label="Sign out of StellarRail"
+          title="Sign out"
           onClick={() => {
             void logout().then(() => router.push('/login'))
           }}
-          className="tactile-btn rounded-md p-1.5 text-slate-600 hover:bg-slate-200/80 hover:text-rose-600 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-rose-400 transition-colors"
+          className="rounded p-1 text-slate-500 hover:bg-slate-200 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 transition-colors"
         >
-          <LogOut size={15} strokeWidth={1.5} aria-hidden="true" />
+          <LogOut size={15} aria-hidden="true" />
         </button>
       </div>
     </div>
@@ -245,9 +323,13 @@ export function Sidebar(): React.JSX.Element {
 
   return (
     <>
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-line/80 bg-white/95 dark:border-white/10 dark:bg-navy-950/95 backdrop-blur-md md:flex">
-        <div className="flex h-14 items-center px-5 border-b border-line/80 dark:border-white/10">
-          <Link href="/" className="focus-visible:outline-none" aria-label="StellarRail home">
+      {/* Desktop Persistent Sidebar */}
+      <aside
+        aria-label="Sidebar navigation"
+        className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950 md:flex"
+      >
+        <div className="flex h-14 items-center px-5 border-b border-slate-200 dark:border-slate-800">
+          <Link href="/" className="focus-visible:outline-none" aria-label="StellarRail Home">
             <BrandLogo />
           </Link>
         </div>
@@ -257,16 +339,20 @@ export function Sidebar(): React.JSX.Element {
         <UserFooter />
       </aside>
 
+      {/* Mobile Drawer */}
       {open ? (
         <div className="fixed inset-0 z-50 md:hidden">
           <div
             aria-hidden="true"
-            className="fixed inset-0 bg-navy-950/50 backdrop-blur-sm transition-opacity"
+            className="fixed inset-0 bg-slate-950/50 backdrop-blur-sm transition-opacity"
             onClick={() => setSidebar(false)}
           />
-          <aside className="fixed inset-y-0 left-0 flex w-64 flex-col border-r border-line bg-white shadow-2xl dark:border-white/10 dark:bg-navy-950">
-            <div className="flex h-14 items-center justify-between px-5 border-b border-line/80 dark:border-white/10">
-              <Link href="/" onClick={() => setSidebar(false)}>
+          <aside
+            aria-label="Mobile navigation"
+            className="fixed inset-y-0 left-0 flex w-64 flex-col border-r border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-950"
+          >
+            <div className="flex h-14 items-center justify-between px-5 border-b border-slate-200 dark:border-slate-800">
+              <Link href="/" onClick={() => setSidebar(false)} aria-label="StellarRail Home">
                 <BrandLogo />
               </Link>
             </div>
